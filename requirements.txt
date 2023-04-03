@@ -1,0 +1,10 @@
+tox
+django
+djoser
+django-debug-toolbar
+django-cors-headers
+django-phonenumber-field[phonenumbers]
+djangorestframework
+djangorestframework-simplejwt
+drf-nested-routers 
+
