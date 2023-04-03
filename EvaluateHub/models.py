@@ -24,4 +24,33 @@ class Tracker (models.Model):
     def str(self):
         return self.name
     
+class EvaluationForm (models.Model):
+    # EvaluationForm is a model that represents a form that can be filled out by a user to evaluate a school.
+    # The form is made up of a series of questions that are answered by the user. The answers are then used to calculate a score for the product.
+    # The EvaluationForm model contains the following fields:
+    # school_name: The name of the school.
+    # school_id: The id of the school.
+    # school_address: The address of the school.
+    # department_one_review: A review of the first department. as like as department_two_review, department_three_review, department_four_review, department_five_review, department_six_review, department_seven_review, department_eight_review, department_nine_review.
+    # created_at: The date and time that the form was created.
+    # updated_at: The date and time that the form was last updated.
+    # created_by: The user that created the form.
+    # status: The status of the form.
+    school_name = models.CharField(max_length=255, null=True, blank=True)
+    school_id = models.CharField(max_length=255, null=True, blank=True)
+    school_address = models.CharField(max_length=255, null=True, blank=True)
+    department_one_review = models.TextField(null=True, blank=True)
+    department_two_review= models.TextField(null=True, blank=True)
+    department_three_review = models.TextField(null=True, blank=True)
+    department_four_review = models.TextField(null=True, blank=True)
+    department_five_review = models.TextField(null=True, blank=True)
+    department_six_review = models.TextField(null=True, blank=True)
+    department_seven_review = models.TextField(null=True, blank=True)
+    department_eight_review = models.TextField(null=True, blank=True)
+    department_nine_review = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(Tracker, on_delete=models.PROTECT)
+    notes = models.TextField(null=True, blank=True)
+    status = models.BooleanField(default=False)
 
