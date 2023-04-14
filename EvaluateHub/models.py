@@ -1,56 +1,76 @@
 from django.db import models
 from django.conf import settings
-# Models for the EvaluateHub app
-# Models are the single, definitive source of information about your data. It contains the essential fields and behaviors of the data you’re storing. Generally, each model maps to a single database table.
-class Tracker (models.Model):
-    # Tracker is a model that represents a tracker that can be used to track the progress of a product.
-    # The tracker is made up of a series of steps that are completed by the user. The steps are then used to calculate a score for the product.
-    # The Tracker model contains the following fields:
-    # name: The name of the tracker.
-    # description: A description of the tracker.
-    # steps: A list of steps that are asked on the tracker.
-    # 
-    # Fields
-    # name
-    # description
-    # steps
-    #
-    name = models.CharField(max_length=255, null=True, blank=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
-    description = models.TextField(null=True, blank=True)
-    steps = models.TextField(null=True, blank=True)
-    # Methods
-    # __str__() - Returns the name of the tracker.
-    def str(self):
-        return self.name
-    
-class EvaluationForm (models.Model):
-    # EvaluationForm is a model that represents a form that can be filled out by a user to evaluate a school.
-    # The form is made up of a series of questions that are answered by the user. The answers are then used to calculate a score for the product.
-    # The EvaluationForm model contains the following fields:
-    # school_name: The name of the school.
-    # school_id: The id of the school.
-    # school_address: The address of the school.
-    # department_one_review: A review of the first department. as like as department_two_review, department_three_review, department_four_review, department_five_review, department_six_review, department_seven_review, department_eight_review, department_nine_review.
-    # created_at: The date and time that the form was created.
-    # updated_at: The date and time that the form was last updated.
-    # created_by: The user that created the form.
-    # status: The status of the form.
-    school_name = models.CharField(max_length=255, null=True, blank=True)
-    school_id = models.CharField(max_length=255, null=True, blank=True)
-    school_address = models.CharField(max_length=255, null=True, blank=True)
-    department_one_review = models.TextField(null=True, blank=True)
-    department_two_review= models.TextField(null=True, blank=True)
-    department_three_review = models.TextField(null=True, blank=True)
-    department_four_review = models.TextField(null=True, blank=True)
-    department_five_review = models.TextField(null=True, blank=True)
-    department_six_review = models.TextField(null=True, blank=True)
-    department_seven_review = models.TextField(null=True, blank=True)
-    department_eight_review = models.TextField(null=True, blank=True)
-    department_nine_review = models.TextField(null=True, blank=True)
+
+
+
+class StudentsAffairs(models.Model):
+    name = models.CharField(max_length=200, null=True, blank=True)
+    pass
+
+class WorkersAffairs(models.Model):
+    pass
+
+class SecuritySafety(models.Model):
+    pass
+
+class Nutrition(models.Model):
+    pass
+
+class Cooperative(models.Model):
+    pass
+
+class Quality(models.Model):
+    pass
+
+class Training(models.Model):
+    pass
+
+class Laboratories(models.Model):
+    pass
+
+class Teachers(models.Model):
+    pass
+
+class Decentralization(models.Model):
+    pass
+
+class ProductionUnit(models.Model):
+    pass
+
+class StrategicPlanning(models.Model):
+    pass
+
+class EnvironmentPopulation(models.Model):
+    pass
+
+class Administration(models.Model):
+    pass
+
+class EvaluationForm(models.Model):
+    school_id = models.CharField(max_length=200, null=True, blank=True)
+    school_name = models.CharField(max_length=200, null=True, blank=True)
+    school_type = models.CharField(max_length=200, null=True, blank=True)
+    school_level = models.CharField(max_length=200, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(Tracker, on_delete=models.PROTECT)
-    notes = models.TextField(null=True, blank=True)
-    status = models.BooleanField(default=False)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="created_by") # Tracker
+    student_affairs = models.OneToOneField(StudentsAffairs, on_delete=models.CASCADE, related_name="student_affairs")
+    workers_affairs = models.OneToOneField(WorkersAffairs, on_delete=models.CASCADE, related_name="workers_affairs")
+    security_safety = models.OneToOneField(SecuritySafety, on_delete=models.CASCADE, related_name="security_safety")
+    nutrition = models.OneToOneField(Nutrition, on_delete=models.CASCADE, related_name="nutrition")
+    cooperative = models.OneToOneField(Cooperative, on_delete=models.CASCADE, related_name="cooperative")
+    quality = models.OneToOneField(Quality, on_delete=models.CASCADE, related_name="quality")
+    training = models.OneToOneField(Training, on_delete=models.CASCADE, related_name="training")
+    laboratories = models.OneToOneField(Laboratories, on_delete=models.CASCADE, related_name="laboratories")
+    teachers = models.OneToOneField(Teachers, on_delete=models.CASCADE, related_name="teachers")
+    decentralization = models.OneToOneField(Decentralization, on_delete=models.CASCADE, related_name="decentralization")
+    production_unit = models.OneToOneField(ProductionUnit, on_delete=models.CASCADE, related_name="production_unit")
+    strategic_planning = models.OneToOneField(StrategicPlanning, on_delete=models.CASCADE, related_name="strategic_planning")
+    environment_population = models.OneToOneField(EnvironmentPopulation, on_delete=models.CASCADE, related_name="environment_population")
+    administration = models.OneToOneField(Administration, on_delete=models.CASCADE, related_name="administration")
 
+    def __str__(self):
+        return self.school_name
+
+    class Meta:
+        ordering = ["-created_at"]
