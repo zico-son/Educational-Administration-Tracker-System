@@ -2,10 +2,25 @@ from django.db import models
 from django.conf import settings
 
 
+class ClassRecord(models.Model):
+    registered = models.IntegerField(null=True, blank=True)
+    present = models.IntegerField(null=True, blank=True)
+    absent = models.IntegerField(null=True, blank=True)
+    def save(self, *args, **kwargs):
+        self.absent = self.registered - self.present
+        super(ClassRecord, self).save(*args, **kwargs)
 
 class StudentsAffairs(models.Model):
-    name = models.CharField(max_length=200, null=True, blank=True)
-    pass
+    choices =[
+        ("منضبطة", 1),
+        ("غير منضبطة", 2),
+    ]
+    first_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="first_class")
+    second_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="second_class")
+    third_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="third_class")
+    transfers_to_school = models.IntegerField(null=True, blank=True)
+    transfers_from_school = models.IntegerField(null=True, blank=True)
+    transferred_files = models.CharField(max_length=11, null=True, blank=True, choices=choices)
 
 class WorkersAffairs(models.Model):
     pass
