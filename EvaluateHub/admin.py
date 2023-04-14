@@ -10,3 +10,7 @@ class StudentsAffairsAdmin(admin.ModelAdmin):
 @admin.register(WorkersAffairs)
 class WorkersAffairsAdmin(admin.ModelAdmin):
     pass
+@admin.register(ClassRecord)
+class ClassAdmin(admin.ModelAdmin):
+    fields = ['registered', 'present']
+    list_display = ['registered', 'present', 'absent']
