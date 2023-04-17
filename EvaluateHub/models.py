@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
-
-
+from EvaluateHub.translatations import disciplined, notdisciplined
 class ClassRecord(models.Model):
     registered = models.IntegerField(null=True, blank=True)
     present = models.IntegerField(null=True, blank=True)
@@ -12,8 +11,8 @@ class ClassRecord(models.Model):
 
 class StudentsAffairs(models.Model):
     choices =[
-        ("منضبطة", 1),
-        ("غير منضبطة", 2),
+        (disciplined, 1),
+        (notdisciplined, 0),
     ]
     first_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="first_class")
     second_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="second_class")
