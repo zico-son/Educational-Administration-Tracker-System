@@ -1,5 +1,6 @@
 django
 djoser
+djangorestframework_simplejwt
 django-debug-toolbar
 django-cors-headers
 djangorestframework
