@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 Pipfile.lock
 Pipfile
+.vscode/
 # C extensions
 *.so
 
