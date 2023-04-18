@@ -1,5 +1,4 @@
 from rest_framework.serializers import ModelSerializer
-from drf_writable_nested.serializers import WritableNestedModelSerializer as NestedSerializer
 from django.conf import settings
 from EvaluateHub.models import * 
 from core.models import User
