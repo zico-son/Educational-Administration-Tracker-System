@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
-from EvaluateHub.translatations import disciplined, notdisciplined
+from EvaluateHub.translations import *
+
 class ClassRecord(models.Model):
     registered = models.IntegerField(null=True, blank=True)
     present = models.IntegerField(null=True, blank=True)
@@ -12,76 +13,198 @@ class ClassRecord(models.Model):
 class StudentsAffairs(models.Model):
     choices =[
         (disciplined, 1),
-        (notdisciplined, 0),
+        (undisciplined, 0),
     ]
     first_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="first_class")
-    second_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="second_class")
-    third_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="third_class")
+    # second_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="second_class")
+    # third_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="third_class")
     transfers_to_school = models.IntegerField(null=True, blank=True)
     transfers_from_school = models.IntegerField(null=True, blank=True)
     transferred_files = models.CharField(max_length=11, null=True, blank=True, choices=choices)
 
 class WorkersAffairs(models.Model):
-    pass
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    registered = models.IntegerField(null=True, blank=True)
+    present = models.IntegerField(null=True, blank=True)
+    absent = models.IntegerField(null=True, blank=True)
+    negatives =models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    def save(self, *args, **kwargs):
+        self.absent = self.registered - self.present
+        super(WorkersAffairs, self).save(*args, **kwargs)
+
+class SecurityFactors(models.Model):
+    choices =[
+        (valid, 1),
+        (invalid, 0),
+    ]
+    fire_line = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    tanks = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    buckets = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    fire_extinguishers = models.CharField(max_length=11, null=True, blank=True, choices=choices)
 
 class SecuritySafety(models.Model):
-    pass
+    choices =[
+        (disciplined, 1),
+        (undisciplined, 0),
+    ]
+    labs = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    cabins = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    building = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    wall = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    external_factors = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    security_factors = models.OneToOneField(SecurityFactors, on_delete=models.CASCADE, related_name="security_factors")
+
+
+
 
 class Nutrition(models.Model):
-    pass
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    daily_received = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    daily_served = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    disciplined_distribution = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    health_certificate = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    not_stored_periods = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+
 
 class Cooperative(models.Model):
-    pass
-
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    existing_authorized_items = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    drag_running = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    drag_profits = models.CharField(max_length=11, null=True, blank=True, choices=choices)
 class Quality(models.Model):
-    pass
+    first_year_one = models.IntegerField(null=True, blank=True)
+    second_year_one = models.IntegerField(null=True, blank=True)
+    third_year_one = models.IntegerField(null=True, blank=True)
+
+    first_year_two = models.IntegerField(null=True, blank=True)
+    second_year_two = models.IntegerField(null=True, blank=True)
+    third_year_two = models.IntegerField(null=True, blank=True)
+
+    first_year_three = models.IntegerField(null=True, blank=True)
+    second_year_three = models.IntegerField(null=True, blank=True)
+    third_year_three = models.IntegerField(null=True, blank=True)
+    
 
 class Training(models.Model):
-    pass
-
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    teachers_training = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    training_plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    training_plan_activation = models.CharField(max_length=11, null=True, blank=True, choices=choices)
 class Laboratories(models.Model):
-    pass
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    work_validity = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    ory_association = models.IntegerField(null=True, blank=True)
+    networks =models.IntegerField(null=True, blank=True)
+    computers = models.IntegerField(null=True, blank=True)
+    evaluation = models.IntegerField(null=True, blank=True)
+    tilo = models.IntegerField(null=True, blank=True)
 
+class Material (models.Model):
+    name = models.CharField(max_length=200, null=True, blank=True)
+    increase = models.IntegerField(null=True, blank=True)
+    decrease = models.IntegerField(null=True, blank=True)
 class Teachers(models.Model):
-    pass
-
+    material_one = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True)
 class Decentralization(models.Model):
-    pass
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    board_of_trustees = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    decentralization_committee = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    settlement = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    exchange = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    append = models.CharField(max_length=11, null=True, blank=True, choices=choices)
 
 class ProductionUnit(models.Model):
-    pass
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    profit_distribution = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    supply = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    activation = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    certified = models.CharField(max_length=11, null=True, blank=True, choices=choices)
 
 class StrategicPlanning(models.Model):
-    pass
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    obstacles = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    plan_activation = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    team_building = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    analysis = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+
 
 class EnvironmentPopulation(models.Model):
-    pass
-
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    toilets_health_procedures = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    health_file = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    diagnosis_health_plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    check_health_plan= models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    activities = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    labs_health_procedures = models.CharField(max_length=11, null=True, blank=True, choices=choices)
 class Administration(models.Model):
-    pass
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    execution_plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    team_building = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    analysis = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    activities_activation = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    obstacles = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    predicted_crisis = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    communication_system = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    risks_indicators = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    training_on_plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
 
 class EvaluationForm(models.Model):
     school_id = models.CharField(max_length=200, null=True, blank=True)
     school_name = models.CharField(max_length=200, null=True, blank=True)
-    school_type = models.CharField(max_length=200, null=True, blank=True)
     school_level = models.CharField(max_length=200, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="created_by") # Tracker
-    student_affairs = models.OneToOneField(StudentsAffairs, on_delete=models.CASCADE, related_name="student_affairs")
-    workers_affairs = models.OneToOneField(WorkersAffairs, on_delete=models.CASCADE, related_name="workers_affairs")
-    security_safety = models.OneToOneField(SecuritySafety, on_delete=models.CASCADE, related_name="security_safety")
-    nutrition = models.OneToOneField(Nutrition, on_delete=models.CASCADE, related_name="nutrition")
-    cooperative = models.OneToOneField(Cooperative, on_delete=models.CASCADE, related_name="cooperative")
-    quality = models.OneToOneField(Quality, on_delete=models.CASCADE, related_name="quality")
-    training = models.OneToOneField(Training, on_delete=models.CASCADE, related_name="training")
-    laboratories = models.OneToOneField(Laboratories, on_delete=models.CASCADE, related_name="laboratories")
-    teachers = models.OneToOneField(Teachers, on_delete=models.CASCADE, related_name="teachers")
-    decentralization = models.OneToOneField(Decentralization, on_delete=models.CASCADE, related_name="decentralization")
-    production_unit = models.OneToOneField(ProductionUnit, on_delete=models.CASCADE, related_name="production_unit")
-    strategic_planning = models.OneToOneField(StrategicPlanning, on_delete=models.CASCADE, related_name="strategic_planning")
-    environment_population = models.OneToOneField(EnvironmentPopulation, on_delete=models.CASCADE, related_name="environment_population")
-    administration = models.OneToOneField(Administration, on_delete=models.CASCADE, related_name="administration")
+    students_affairs = models.OneToOneField(StudentsAffairs, on_delete=models.CASCADE)
+    workers_affairs = models.OneToOneField(WorkersAffairs, on_delete=models.CASCADE)
+    strategic_planning = models.OneToOneField(StrategicPlanning, on_delete=models.CASCADE)
+    production_unit = models.OneToOneField(ProductionUnit, on_delete=models.CASCADE)
+    decentralization = models.OneToOneField(Decentralization, on_delete=models.CASCADE)
+    environment_population = models.OneToOneField(EnvironmentPopulation, on_delete=models.CASCADE)
+    administration = models.OneToOneField(Administration, on_delete=models.CASCADE)
+    cooperative = models.OneToOneField(Cooperative, on_delete=models.CASCADE)
+    nutrition = models.OneToOneField(Nutrition, on_delete=models.CASCADE)
+    laboratories = models.OneToOneField(Laboratories, on_delete=models.CASCADE)
+    training = models.OneToOneField(Training, on_delete=models.CASCADE)
+    quality = models.OneToOneField(Quality, on_delete=models.CASCADE)
+    security_safety = models.OneToOneField(SecuritySafety, on_delete=models.CASCADE)
+    teachers = models.OneToOneField(Teachers, on_delete=models.CASCADE)
+    
+    
+
 
     def __str__(self):
         return self.school_name
