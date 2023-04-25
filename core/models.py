@@ -2,8 +2,13 @@ from django.contrib.auth.models import AbstractUser as BaseAbstractUser
 from django.db import models
 # Models are the single, definitive source of information about your data. It contains the essential fields and behaviors of the data you’re storing. Generally, each model maps to a single database table.
 
+class Roles(models.Model):
+    role = models.CharField(max_length=255, null=True, blank=True)
+
 class User(BaseAbstractUser):
-    pass
+    role = models.OneToOneField(Roles, on_delete=models.CASCADE, null=True, blank=True)
+    email = models.EmailField(unique=True)
+
     # A model that is the base for all users in the system.
     # AbstractUser is a base class that can be used to create custom user models. It contains all the fields and behaviors that are required for a user model, but none of the specific fields and behaviors that are used for a typical user model.
     # The only required field is username, which is used to authenticate the user. Other fields are optional, but recommended.
