@@ -2,11 +2,12 @@ from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from EvaluateHub.models import *
 from EvaluateHub.serializers import *
+from EvaluateHub.admin_serializers import *
+from EvaluateHub.custom_view_set import NoPostViewSet
 
-
-class StudentsAffairsViewSet(ModelViewSet):
-    queryset = StudentsAffairs.objects.all()
-    serializer_class = StudentsAffairsSerializer
+class StudentsAffairsViewSet(NoPostViewSet):
+    queryset = EvaluationForm.objects.all()
+    serializer_class = AdminEvaluationFormSerializer
 
 class EvaluationFormViewSet(ModelViewSet):
 
