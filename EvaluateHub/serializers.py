@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer
+from django.db import transaction
 from django.conf import settings
 from EvaluateHub.models import * 
 from core.models import User
@@ -155,85 +156,86 @@ class EvaluationFormSerializer(ModelSerializer):
 
 
     def create(self, validated_data):
-        students_affairs_data = validated_data.pop('students_affairs')
-        first_class_data = students_affairs_data.pop('first_class')
-        first_class = ClassRecord.objects.create(**first_class_data)
-        issue_data = students_affairs_data.pop('issue')
-        students_affairs =StudentsAffairs.objects.create( first_class=first_class, **students_affairs_data)
-        create_issue_if_not_empty(issue_data, StudentAffairsIssue, students_affairs)
-        
-        security_safety_data =validated_data.pop('security_safety')
-        security_factors_data = security_safety_data.pop('security_factors')
-        security_factors = SecurityFactors.objects.create(**security_factors_data)
-        issue_data = security_safety_data.pop('issue')
-        security_safety = SecuritySafety.objects.create(security_factors= security_factors,**security_safety_data)
-        create_issue_if_not_empty(issue_data, SecuritySafetyIssue, security_safety)
+        with transaction.atomic():
+            students_affairs_data = validated_data.pop('students_affairs')
+            first_class_data = students_affairs_data.pop('first_class')
+            first_class = ClassRecord.objects.create(**first_class_data)
+            issue_data = students_affairs_data.pop('issue')
+            students_affairs =StudentsAffairs.objects.create( first_class=first_class, **students_affairs_data)
+            create_issue_if_not_empty(issue_data, StudentAffairsIssue, students_affairs)
+            
+            security_safety_data =validated_data.pop('security_safety')
+            security_factors_data = security_safety_data.pop('security_factors')
+            security_factors = SecurityFactors.objects.create(**security_factors_data)
+            issue_data = security_safety_data.pop('issue')
+            security_safety = SecuritySafety.objects.create(security_factors= security_factors,**security_safety_data)
+            create_issue_if_not_empty(issue_data, SecuritySafetyIssue, security_safety)
 
-        teachers_data = validated_data.pop('teachers')
-        material_one_data = teachers_data.pop('material_one')
-        material_one = Material.objects.create(**material_one_data)
-        issue_data = teachers_data.pop('issue')
-        teachers = Teachers.objects.create(material_one = material_one, **teachers_data)
-        create_issue_if_not_empty(issue_data, TeachersIssue, teachers)
+            teachers_data = validated_data.pop('teachers')
+            material_one_data = teachers_data.pop('material_one')
+            material_one = Material.objects.create(**material_one_data)
+            issue_data = teachers_data.pop('issue')
+            teachers = Teachers.objects.create(material_one = material_one, **teachers_data)
+            create_issue_if_not_empty(issue_data, TeachersIssue, teachers)
 
-        workers_affairs_data = validated_data.pop('workers_affairs')
-        issue_data = workers_affairs_data.pop('issue')
-        workers_affairs = WorkersAffairs.objects.create(**workers_affairs_data)
-        create_issue_if_not_empty(issue_data, WorkersAffairsIssue, workers_affairs)
+            workers_affairs_data = validated_data.pop('workers_affairs')
+            issue_data = workers_affairs_data.pop('issue')
+            workers_affairs = WorkersAffairs.objects.create(**workers_affairs_data)
+            create_issue_if_not_empty(issue_data, WorkersAffairsIssue, workers_affairs)
 
-        strategic_planning_data = validated_data.pop('strategic_planning')
-        issue_data = strategic_planning_data.pop('issue')
-        strategic_planning = StrategicPlanning.objects.create(**strategic_planning_data)
-        create_issue_if_not_empty(issue_data, StrategicPlanningIssue, strategic_planning)
-        
-        administration_data = validated_data.pop('administration')
-        issue_data = administration_data.pop('issue')
-        administration = Administration.objects.create(**administration_data)
-        create_issue_if_not_empty(issue_data, AdministrationIssue, administration)
-        
-        training_data = validated_data.pop('training')
-        issue_data = training_data.pop('issue')
-        training = Training.objects.create(**training_data)
-        create_issue_if_not_empty(issue_data, TrainingIssue, training)
-        
-        nutrition_data = validated_data.pop('nutrition')
-        issue_data = nutrition_data.pop('issue')
-        nutrition = Nutrition.objects.create(**nutrition_data)
-        create_issue_if_not_empty(issue_data, NutritionIssue, nutrition)
-        
-        cooperative_data = validated_data.pop('cooperative')
-        issue_data = cooperative_data.pop('issue')    
-        cooperative = Cooperative.objects.create(**cooperative_data)
-        create_issue_if_not_empty(issue_data, CooperativeIssue, cooperative)
-        
-        laboratories_data = validated_data.pop('laboratories')
-        issue_data = laboratories_data.pop('issue')
-        laboratories = Laboratories.objects.create(**laboratories_data)
-        create_issue_if_not_empty(issue_data, LaboratoriesIssue, laboratories)
-        
-        decentralization_data = validated_data.pop('decentralization')
-        issue_data = decentralization_data.pop('issue')
-        decentralization = Decentralization.objects.create(**decentralization_data)
-        create_issue_if_not_empty(issue_data, DecentralizationIssue, decentralization)
-        
-        production_unit_data = validated_data.pop('production_unit')
-        issue_data = production_unit_data.pop('issue')
-        production_unit = ProductionUnit.objects.create(**production_unit_data)
-        create_issue_if_not_empty(issue_data, ProductionUnitIssue, production_unit)
-        
-        environment_population_data = validated_data.pop('environment_population')
-        issue_data = environment_population_data.pop('issue')
-        environment_population = EnvironmentPopulation.objects.create(**environment_population_data)
-        create_issue_if_not_empty(issue_data, EnvironmentPopulationIssue, environment_population)
-        
-        quality_data = validated_data.pop('quality')
-        issue_data = quality_data.pop('issue')
-        quality = Quality.objects.create(**quality_data)
-        create_issue_if_not_empty(issue_data, QualityIssue, quality)
+            strategic_planning_data = validated_data.pop('strategic_planning')
+            issue_data = strategic_planning_data.pop('issue')
+            strategic_planning = StrategicPlanning.objects.create(**strategic_planning_data)
+            create_issue_if_not_empty(issue_data, StrategicPlanningIssue, strategic_planning)
+            
+            administration_data = validated_data.pop('administration')
+            issue_data = administration_data.pop('issue')
+            administration = Administration.objects.create(**administration_data)
+            create_issue_if_not_empty(issue_data, AdministrationIssue, administration)
+            
+            training_data = validated_data.pop('training')
+            issue_data = training_data.pop('issue')
+            training = Training.objects.create(**training_data)
+            create_issue_if_not_empty(issue_data, TrainingIssue, training)
+            
+            nutrition_data = validated_data.pop('nutrition')
+            issue_data = nutrition_data.pop('issue')
+            nutrition = Nutrition.objects.create(**nutrition_data)
+            create_issue_if_not_empty(issue_data, NutritionIssue, nutrition)
+            
+            cooperative_data = validated_data.pop('cooperative')
+            issue_data = cooperative_data.pop('issue')    
+            cooperative = Cooperative.objects.create(**cooperative_data)
+            create_issue_if_not_empty(issue_data, CooperativeIssue, cooperative)
+            
+            laboratories_data = validated_data.pop('laboratories')
+            issue_data = laboratories_data.pop('issue')
+            laboratories = Laboratories.objects.create(**laboratories_data)
+            create_issue_if_not_empty(issue_data, LaboratoriesIssue, laboratories)
+            
+            decentralization_data = validated_data.pop('decentralization')
+            issue_data = decentralization_data.pop('issue')
+            decentralization = Decentralization.objects.create(**decentralization_data)
+            create_issue_if_not_empty(issue_data, DecentralizationIssue, decentralization)
+            
+            production_unit_data = validated_data.pop('production_unit')
+            issue_data = production_unit_data.pop('issue')
+            production_unit = ProductionUnit.objects.create(**production_unit_data)
+            create_issue_if_not_empty(issue_data, ProductionUnitIssue, production_unit)
+            
+            environment_population_data = validated_data.pop('environment_population')
+            issue_data = environment_population_data.pop('issue')
+            environment_population = EnvironmentPopulation.objects.create(**environment_population_data)
+            create_issue_if_not_empty(issue_data, EnvironmentPopulationIssue, environment_population)
+            
+            quality_data = validated_data.pop('quality')
+            issue_data = quality_data.pop('issue')
+            quality = Quality.objects.create(**quality_data)
+            create_issue_if_not_empty(issue_data, QualityIssue, quality)
 
-        user_id =self.context['user_id']
-        print (user_id)
-        created_by = User.objects.get(pk=user_id)
+            user_id =self.context['user_id']
+            print (user_id)
+            created_by = User.objects.get(pk=user_id)
 
-        evaluation_form = EvaluationForm.objects.create(students_affairs=students_affairs, workers_affairs=workers_affairs, strategic_planning=strategic_planning, administration=administration, training=training, nutrition=nutrition, cooperative=cooperative, laboratories=laboratories, decentralization=decentralization, production_unit=production_unit, environment_population=environment_population, quality=quality,security_safety=security_safety,teachers = teachers, created_by =created_by,**validated_data)
-        return evaluation_form
+            evaluation_form = EvaluationForm.objects.create(students_affairs=students_affairs, workers_affairs=workers_affairs, strategic_planning=strategic_planning, administration=administration, training=training, nutrition=nutrition, cooperative=cooperative, laboratories=laboratories, decentralization=decentralization, production_unit=production_unit, environment_population=environment_population, quality=quality,security_safety=security_safety,teachers = teachers, created_by =created_by,**validated_data)
+            return evaluation_form
