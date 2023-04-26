@@ -3,7 +3,7 @@ from django.db import transaction
 from django.conf import settings
 from EvaluateHub.models import * 
 from core.models import User
-from .validators import create_issue_if_not_empty
+from EvaluateHub.validators import create_issue_if_not_empty
 
 class ClassRecordSerializer(ModelSerializer):
     class Meta:
