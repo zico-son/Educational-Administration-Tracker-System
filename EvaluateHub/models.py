@@ -211,3 +211,118 @@ class EvaluationForm(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+
+# Issues Models
+class StudentAffairsIssue(models.Model):
+    issue = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(StudentsAffairs, on_delete=models.CASCADE, related_name='issue')
+
+class WorkersAffairsIssue(models.Model):
+    issue = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(WorkersAffairs, on_delete=models.CASCADE, related_name='issue')
+
+class AdministrationIssue(models.Model):
+    issue = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Administration, on_delete=models.CASCADE, related_name='issue')
+
+class EnvironmentPopulationIssue(models.Model):
+    issue = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(EnvironmentPopulation, on_delete=models.CASCADE, related_name='issue')
+
+class StrategicPlanningIssue(models.Model):
+    issue = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(StrategicPlanning, on_delete=models.CASCADE, related_name='issue')
+
+class ProductionUnitIssue(models.Model):
+    issue = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(ProductionUnit, on_delete=models.CASCADE, related_name='issue')
+
+class DecentralizationIssue(models.Model):
+    issue = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Decentralization, on_delete=models.CASCADE, related_name='issue')
+
+class LaboratoriesIssue(models.Model):
+    issue = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Laboratories, on_delete=models.CASCADE, related_name='issue')
+
+class SecuritySafetyIssue(models.Model):
+    issue = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(SecuritySafety, on_delete=models.CASCADE, related_name='issue')
+
+class NutritionIssue(models.Model):
+    issue = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Nutrition, on_delete=models.CASCADE, related_name='issue')
+
+class CooperativeIssue(models.Model):
+    issue = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Cooperative, on_delete=models.CASCADE, related_name='issue')
+
+class TrainingIssue(models.Model):
+    issue = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Training, on_delete=models.CASCADE, related_name='issue')
+
+class QualityIssue(models.Model):
+    issue = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Quality, on_delete=models.CASCADE, related_name='issue')
+
+class TeachersIssue(models.Model):
+    issue = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Teachers, on_delete=models.CASCADE, related_name='issue')
+
+
+# Response Models
+class StudentAffairsResponse(models.Model):
+    response = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(StudentsAffairs, on_delete=models.CASCADE, related_name='response')
+
+class WorkersAffairsResponse(models.Model):
+    response = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(WorkersAffairs, on_delete=models.CASCADE, related_name='response')
+
+class AdministrationResponse(models.Model):
+    response = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Administration, on_delete=models.CASCADE, related_name='response')
+
+class EnvironmentPopulationResponse(models.Model):
+    response = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(EnvironmentPopulation, on_delete=models.CASCADE, related_name='response')
+
+class StrategicPlanningResponse(models.Model):
+    response = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(StrategicPlanning, on_delete=models.CASCADE, related_name='response')
+
+class ProductionUnitResponse(models.Model):
+    response = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(ProductionUnit, on_delete=models.CASCADE, related_name='response')
+
+class DecentralizationResponse(models.Model):
+    response = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Decentralization, on_delete=models.CASCADE, related_name='response')
+
+class LaboratoriesResponse(models.Model):
+    response = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Laboratories, on_delete=models.CASCADE, related_name='response')
+
+class SecuritySafetyResponse(models.Model):
+    response = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(SecuritySafety, on_delete=models.CASCADE, related_name='response')
+
+class NutritionResponse(models.Model):
+    response = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Nutrition, on_delete=models.CASCADE, related_name='response')
+
+class CooperativeResponse(models.Model):
+    response = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Cooperative, on_delete=models.CASCADE, related_name='response')
+
+class TrainingResponse(models.Model):
+    response = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Training, on_delete=models.CASCADE, related_name='response')
+
+class QualityResponse(models.Model):
+    response = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Quality, on_delete=models.CASCADE, related_name='response')
+
+class TeachersResponse(models.Model):
+    response = models.TextField(null=True, blank=True)
+    department = models.OneToOneField(Teachers, on_delete=models.CASCADE, related_name='response')
