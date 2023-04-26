@@ -5,3 +5,7 @@ def create_issue_if_not_empty (value,IssueManager,IssueManagerObject):
 def create_response_if_not_empty (value,ResponseManager,ResponseManagerObject):
     if value.get('response') != "" :
         ResponseManager.objects.create(department= ResponseManagerObject, **value)
+
+def update_response_if_not_empty (value,ResponseManager,ResponseManagerObject):
+    if value.get('response') != "" :
+        ResponseManager.objects.update(department= ResponseManagerObject, **value)
