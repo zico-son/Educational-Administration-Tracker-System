@@ -223,6 +223,8 @@ class QualityViewSet(NoPostViewSet):
     filterset_fields = ['school_level']
     search_fields = ['id', 'school_name', 'school_id', 'school_level']
     queryset = EvaluationForm.objects \
+        .select_related('quality__issue') \
+        .select_related('quality__response') \
         .all()
     serializer_class = AdminQualityEvaluationFormSerializer
 
@@ -238,6 +240,8 @@ class EnvironmentPopulationViewSet(NoPostViewSet):
     filterset_fields = ['school_level']
     search_fields = ['id', 'school_name', 'school_id', 'school_level']
     queryset = EvaluationForm.objects \
+        .select_related('environment_population__issue') \
+        .select_related('environment_population__response') \
         .all()
     serializer_class = AdminEnvironmentPopulationEvaluationFormSerializer
 
