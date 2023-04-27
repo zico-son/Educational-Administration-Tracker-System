@@ -6,4 +6,3 @@ django-cors-headers
 djangorestframework
 drf-nested-routers 
 drf-writable-nested
-whitenoise
