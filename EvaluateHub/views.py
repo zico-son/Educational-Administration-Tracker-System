@@ -34,7 +34,6 @@ class WorkersAffairsViewSet(NoPostViewSet):
     filterset_fields = ['school_level']
     search_fields = ['id', 'school_name', 'school_id', 'school_level']
     queryset = EvaluationForm.objects \
-        .select_related('workers_affairs__first_class') \
         .select_related('workers_affairs__issue') \
         .select_related('workers_affairs__response') \
         .all()
