@@ -16,17 +16,6 @@ class EvaluationFormViewSet(ModelViewSet):
         .select_related('students_affairs__first_class') \
         .select_related('security_safety__security_factors') \
         .select_related('teachers__material_one') \
-        .select_related('workers_affairs') \
-        .select_related('strategic_planning') \
-        .select_related('administration') \
-        .select_related('training') \
-        .select_related('nutrition') \
-        .select_related('cooperative') \
-        .select_related('laboratories') \
-        .select_related('decentralization') \
-        .select_related('production_unit') \
-        .select_related('environment_population') \
-        .select_related('quality') \
         .select_related('students_affairs__issue') \
         .select_related('security_safety__issue') \
         .select_related('teachers__issue') \
