@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from EvaluateHub.serializers import IssueSerializer, ResponseSerializer, ClassRecordSerializer,MaterialSerializer, SecurityFactorsSerializer
 from EvaluateHub.models import *
-from EvaluateHub.validators import create_response_if_not_empty, update_response_if_not_empty
+from EvaluateHub.utils import create_response_if_not_empty, update_response_if_not_empty
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -121,3 +121,256 @@ class AdminEnvironmentPopulationSerializer(ModelSerializer):
         model = EnvironmentPopulation
         fields = ['id', 'toilets_health_procedures','health_file','diagnosis_health_plan','check_health_plan','activities' ,'labs_health_procedures','issue', 'response']
         read_only_fields = ['id', 'toilets_health_procedures','health_file','diagnosis_health_plan','check_health_plan','activities' ,'labs_health_procedures','issue']
+
+class AdminStudentsEvaluationFormSerializer(ModelSerializer):
+    students_affairs = AdminStudentsAffairsSerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','students_affairs']
+        read_only_fields = ['id', 'school_name', 'school_id', 'school_level']
+
+    def update(self, instance, validated_data):
+        students_affairs_data = validated_data.pop('students_affairs')
+        response_data = students_affairs_data.pop('response')
+        students_affairs = StudentsAffairs.objects.get(pk = instance.students_affairs.id)
+        try:
+            if instance.students_affairs.response:
+                print (instance.students_affairs.response) 
+                update_response_if_not_empty(response_data, StudentAffairsResponse, students_affairs)
+        except ObjectDoesNotExist:
+                create_response_if_not_empty(response_data, StudentAffairsResponse, students_affairs)
+        return instance
+
+class AdminWorkersEvaluationFormSerializer(ModelSerializer):
+    workers_affairs = AdminWorkersAffairsSerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','workers_affairs']
+        read_only_fields = ['id', 'school_name', 'school_id', 'school_level']
+
+    def update(self, instance, validated_data):
+        workers_affairs_data = validated_data.pop('workers_affairs')
+        response_data = workers_affairs_data.pop('response')
+        workers_affairs = WorkersAffairs.objects.get(pk = instance.workers_affairs.id)
+        try:
+            if instance.workers_affairs.response:
+                update_response_if_not_empty(response_data, WorkersAffairsResponse, workers_affairs)
+        except ObjectDoesNotExist:
+                create_response_if_not_empty(response_data, WorkersAffairsResponse, workers_affairs)
+        return instance
+
+class AdminTrainingEvaluationFormSerializer(ModelSerializer):
+    training = AdminTrainingSerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','training']
+        read_only_fields = ['id', 'school_name', 'school_id', 'school_level']
+
+    def update(self, instance, validated_data):
+        training_data = validated_data.pop('training')
+        response_data = training_data.pop('response')
+        training = Training.objects.get(pk = instance.training.id)
+        try:
+            if instance.training.response:
+                update_response_if_not_empty(response_data, TrainingResponse, training)
+        except ObjectDoesNotExist:
+                create_response_if_not_empty(response_data, TrainingResponse, training)
+        return instance
+
+class AdminNutritionEvaluationFormSerializer(ModelSerializer):
+    nutrition = AdminNutritionSerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','nutrition']
+        read_only_fields = ['id', 'school_name', 'school_id', 'school_level']
+
+    def update(self, instance, validated_data):
+        nutrition_data = validated_data.pop('nutrition')
+        response_data = nutrition_data.pop('response')
+        nutrition = Nutrition.objects.get(pk = instance.nutrition.id)
+        try:
+            if instance.nutrition.response:
+                update_response_if_not_empty(response_data, NutritionResponse, nutrition)
+        except ObjectDoesNotExist:
+                create_response_if_not_empty(response_data, NutritionResponse, nutrition)
+        return instance
+
+class AdminEnvironmentEvaluationFormSerializer(ModelSerializer):
+    environment_population = AdminEnvironmentPopulationSerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','environment_population']
+        read_only_fields = ['id', 'school_name', 'school_id', 'school_level']
+
+    def update(self, instance, validated_data):
+        environment_data = validated_data.pop('environment_population')
+        response_data = environment_data.pop('response')
+        environment = EnvironmentPopulation.objects.get(pk = instance.environment.id)
+        try:
+            if instance.environment.response:
+                update_response_if_not_empty(response_data, EnvironmentPopulationResponse, environment)
+        except ObjectDoesNotExist:
+                create_response_if_not_empty(response_data, EnvironmentPopulationResponse, environment)
+        return instance
+    
+class AdminCooperativeEvaluationFormSerializer(ModelSerializer):
+    cooperative = AdminCooperativeSerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','cooperative']
+        read_only_fields = ['id', 'school_name', 'school_id', 'school_level']
+
+    def update(self, instance, validated_data):
+        cooperative_data = validated_data.pop('cooperative')
+        response_data = cooperative_data.pop('response')
+        cooperative = Cooperative.objects.get(pk = instance.cooperative.id)
+        try:
+            if instance.cooperative.response:
+                update_response_if_not_empty(response_data, CooperativeResponse, cooperative)
+        except ObjectDoesNotExist:
+                create_response_if_not_empty(response_data, CooperativeResponse, cooperative)
+        return instance
+
+class AdminProductionUnitEvaluationFormSerializer(ModelSerializer):
+    production_unit = AdminProductionUnitSerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','production_unit']
+        read_only_fields = ['id', 'school_name', 'school_id', 'school_level']
+
+    def update(self, instance, validated_data):
+        production_unit_data = validated_data.pop('production_unit')
+        response_data = production_unit_data.pop('response')
+        production_unit = ProductionUnit.objects.get(pk = instance.production_unit.id)
+        try:
+            if instance.production_unit.response:
+                update_response_if_not_empty(response_data, ProductionUnitResponse, production_unit)
+        except ObjectDoesNotExist:
+                create_response_if_not_empty(response_data, ProductionUnitResponse, production_unit)
+        return instance
+
+class AdminSecuritySafetyEvaluationFormSerializer(ModelSerializer):
+    security_safety = AdminSecuritySafetySerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','security_safety']
+        read_only_fields = ['id', 'school_name', 'school_id', 'school_level']
+
+    def update(self, instance, validated_data):
+        security_safety_data = validated_data.pop('security_safety')
+        response_data = security_safety_data.pop('response')
+        security_safety = SecuritySafety.objects.get(pk = instance.security_safety.id)
+        try:
+            if instance.security_safety.response:
+                update_response_if_not_empty(response_data, SecuritySafetyResponse, security_safety)
+        except ObjectDoesNotExist:
+                create_response_if_not_empty(response_data, SecuritySafetyResponse, security_safety)
+        return instance
+
+class AdminTeachersEvaluationFormSerializer(ModelSerializer):
+    teachers = AdminTeachersSerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','teachers']
+        read_only_fields = ['id', 'school_name', 'school_id', 'school_level']
+
+    def update(self, instance, validated_data):
+        teachers_data = validated_data.pop('teachers')
+        response_data = teachers_data.pop('response')
+        teachers = Teachers.objects.get(pk = instance.teachers.id)
+        try:
+            if instance.teachers.response:
+                update_response_if_not_empty(response_data, TeachersResponse, teachers)
+        except ObjectDoesNotExist:
+                create_response_if_not_empty(response_data, TeachersResponse, teachers)
+        return instance
+
+class AdminStrategicPlanningEvaluationFormSerializer(ModelSerializer):
+    strategic_planning = AdminStrategicPlanningSerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','strategic_planning']
+        read_only_fields = ['id', 'school_name', 'school_id', 'school_level']
+
+    def update(self, instance, validated_data):
+        strategic_planning_data = validated_data.pop('strategic_planning')
+        response_data = strategic_planning_data.pop('response')
+        strategic_planning = StrategicPlanning.objects.get(pk = instance.strategic_planning.id)
+        try:
+            if instance.strategic_planning.response:
+                update_response_if_not_empty(response_data, StrategicPlanningResponse, strategic_planning)
+        except ObjectDoesNotExist:
+                create_response_if_not_empty(response_data, StrategicPlanningResponse, strategic_planning)
+        return instance
+
+class AdminAdministrationEvaluationForm(ModelSerializer):
+    administration = AdminAdministrationSerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','administration']
+        read_only_fields = ['id', 'school_name', 'school_id', 'school_level']
+
+    def update(self, instance, validated_data):
+        administration_data = validated_data.pop('administration')
+        response_data = administration_data.pop('response')
+        administration = Administration.objects.get(pk = instance.administration.id)
+        try:
+            if instance.administration.response:
+                update_response_if_not_empty(response_data, AdministrationResponse, administration)
+        except ObjectDoesNotExist:
+                create_response_if_not_empty(response_data, AdministrationResponse, administration)
+        return instance
+
+class AdminQualityEvaluationForm(ModelSerializer):
+    quality = AdminQualitySerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','quality']
+        read_only_fields = ['id', 'school_name', 'school_id', 'school_level']
+
+    def update (self, instance,validated_data):
+        quality_data = validated_data.pop('quality')
+        response_data = quality_data.pop('response')
+        quality = Quality.objects.get(pk = instance.quality.id)
+        try:
+            if instance.quality.response:
+                update_response_if_not_empty(response_data, QualityResponse, quality)
+        except ObjectDoesNotExist:
+                create_response_if_not_empty(response_data, QualityResponse, quality)
+        return instance
+
+class AdminDecentralizationSerializer(ModelSerializer):
+    decentralization = AdminDecentralizationSerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','decentralization']
+        read_only_fields = ['id', 'school_name', 'school_id', 'school_level']
+
+    def update(self, instance, validated_data):
+        decentralization_data = validated_data.pop('decentralization')
+        response_data = decentralization_data.pop('response')
+        decentralization = Decentralization.objects.get(pk = instance.decentralization.id)
+        try:
+            if instance.decentralization.response:
+                update_response_if_not_empty(response_data, DecentralizationResponse, decentralization)
+        except ObjectDoesNotExist:
+                create_response_if_not_empty(response_data, DecentralizationResponse, decentralization)
+        return instance
+
+class AdminLaboratoriesEvaluationForm(ModelSerializer):
+    laboratories = AdminLaboratoriesSerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','laboratories']
+        read_only_fields = ['id', 'school_name', 'school_id', 'school_level']
+
+    def update(self, instance, validated_data):
+        laboratories_data = validated_data.pop('laboratories')
+        response_data = laboratories_data.pop('response')
+        laboratories = Laboratories.objects.get(pk = instance.laboratories.id)
+        try:
+            if instance.laboratories.response:
+                update_response_if_not_empty(response_data, LaboratoriesResponse, laboratories)
+        except ObjectDoesNotExist:
+                create_response_if_not_empty(response_data, LaboratoriesResponse, laboratories)
+        return instance
