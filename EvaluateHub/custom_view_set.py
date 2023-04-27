@@ -3,3 +3,6 @@ from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateMode
 
 class NoPostViewSet(GenericViewSet, ListModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin):
     pass
+
+class NoUpdateViewSet(GenericViewSet, ListModelMixin, RetrieveModelMixin, DestroyModelMixin):
+    pass
