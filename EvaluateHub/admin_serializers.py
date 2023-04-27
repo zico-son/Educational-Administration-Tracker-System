@@ -139,6 +139,7 @@ class AdminStudentsEvaluationFormSerializer(ModelSerializer):
                 update_response_if_not_empty(response_data, StudentAffairsResponse, students_affairs)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, StudentAffairsResponse, students_affairs)
+        instance.students_affairs = students_affairs
         return instance
 
 class AdminWorkersEvaluationFormSerializer(ModelSerializer):
@@ -157,6 +158,7 @@ class AdminWorkersEvaluationFormSerializer(ModelSerializer):
                 update_response_if_not_empty(response_data, WorkersAffairsResponse, workers_affairs)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, WorkersAffairsResponse, workers_affairs)
+        instance.workers_affairs = workers_affairs
         return instance
 
 class AdminTrainingEvaluationFormSerializer(ModelSerializer):
@@ -175,6 +177,7 @@ class AdminTrainingEvaluationFormSerializer(ModelSerializer):
                 update_response_if_not_empty(response_data, TrainingResponse, training)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, TrainingResponse, training)
+        instance.training = training
         return instance
 
 class AdminNutritionEvaluationFormSerializer(ModelSerializer):
@@ -193,9 +196,10 @@ class AdminNutritionEvaluationFormSerializer(ModelSerializer):
                 update_response_if_not_empty(response_data, NutritionResponse, nutrition)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, NutritionResponse, nutrition)
+        instance.nutrition = nutrition
         return instance
 
-class AdminEnvironmentEvaluationFormSerializer(ModelSerializer):
+class AdminEnvironmentPopulationEvaluationFormSerializer(ModelSerializer):
     environment_population = AdminEnvironmentPopulationSerializer()
     class Meta:
         model = EvaluationForm
@@ -211,6 +215,7 @@ class AdminEnvironmentEvaluationFormSerializer(ModelSerializer):
                 update_response_if_not_empty(response_data, EnvironmentPopulationResponse, environment)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, EnvironmentPopulationResponse, environment)
+        instance.environment = environment
         return instance
     
 class AdminCooperativeEvaluationFormSerializer(ModelSerializer):
@@ -229,6 +234,7 @@ class AdminCooperativeEvaluationFormSerializer(ModelSerializer):
                 update_response_if_not_empty(response_data, CooperativeResponse, cooperative)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, CooperativeResponse, cooperative)
+        instance.cooperative = cooperative
         return instance
 
 class AdminProductionUnitEvaluationFormSerializer(ModelSerializer):
@@ -247,6 +253,7 @@ class AdminProductionUnitEvaluationFormSerializer(ModelSerializer):
                 update_response_if_not_empty(response_data, ProductionUnitResponse, production_unit)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, ProductionUnitResponse, production_unit)
+        instance.production_unit = production_unit
         return instance
 
 class AdminSecuritySafetyEvaluationFormSerializer(ModelSerializer):
@@ -265,6 +272,7 @@ class AdminSecuritySafetyEvaluationFormSerializer(ModelSerializer):
                 update_response_if_not_empty(response_data, SecuritySafetyResponse, security_safety)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, SecuritySafetyResponse, security_safety)
+        instance.security_safety = security_safety
         return instance
 
 class AdminTeachersEvaluationFormSerializer(ModelSerializer):
@@ -283,6 +291,7 @@ class AdminTeachersEvaluationFormSerializer(ModelSerializer):
                 update_response_if_not_empty(response_data, TeachersResponse, teachers)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, TeachersResponse, teachers)
+        instance.teachers = teachers
         return instance
 
 class AdminStrategicPlanningEvaluationFormSerializer(ModelSerializer):
@@ -301,9 +310,10 @@ class AdminStrategicPlanningEvaluationFormSerializer(ModelSerializer):
                 update_response_if_not_empty(response_data, StrategicPlanningResponse, strategic_planning)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, StrategicPlanningResponse, strategic_planning)
+        instance.strategic_planning = strategic_planning
         return instance
 
-class AdminAdministrationEvaluationForm(ModelSerializer):
+class AdminAdministrationEvaluationFormSerializer(ModelSerializer):
     administration = AdminAdministrationSerializer()
     class Meta:
         model = EvaluationForm
@@ -319,9 +329,10 @@ class AdminAdministrationEvaluationForm(ModelSerializer):
                 update_response_if_not_empty(response_data, AdministrationResponse, administration)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, AdministrationResponse, administration)
+        instance.administration = administration
         return instance
 
-class AdminQualityEvaluationForm(ModelSerializer):
+class AdminQualityEvaluationFormSerializer(ModelSerializer):
     quality = AdminQualitySerializer()
     class Meta:
         model = EvaluationForm
@@ -337,9 +348,10 @@ class AdminQualityEvaluationForm(ModelSerializer):
                 update_response_if_not_empty(response_data, QualityResponse, quality)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, QualityResponse, quality)
+        instance.quality = quality
         return instance
 
-class AdminDecentralizationSerializer(ModelSerializer):
+class AdminDecentralizationEvaluationFormSerializer(ModelSerializer):
     decentralization = AdminDecentralizationSerializer()
     class Meta:
         model = EvaluationForm
@@ -355,9 +367,10 @@ class AdminDecentralizationSerializer(ModelSerializer):
                 update_response_if_not_empty(response_data, DecentralizationResponse, decentralization)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, DecentralizationResponse, decentralization)
+        instance.decentralization = decentralization
         return instance
 
-class AdminLaboratoriesEvaluationForm(ModelSerializer):
+class AdminLaboratoriesEvaluationFormSerializer(ModelSerializer):
     laboratories = AdminLaboratoriesSerializer()
     class Meta:
         model = EvaluationForm
@@ -373,4 +386,5 @@ class AdminLaboratoriesEvaluationForm(ModelSerializer):
                 update_response_if_not_empty(response_data, LaboratoriesResponse, laboratories)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, LaboratoriesResponse, laboratories)
+        instance.laboratories = laboratories
         return instance
