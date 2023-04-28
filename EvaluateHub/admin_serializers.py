@@ -19,7 +19,7 @@ class AdminStudentsAffairsSerializer(ModelSerializer):
 class AdminSecuritySafetySerializer(ModelSerializer):
     issue = IssueSerializer(read_only =True)
     response = ResponseSerializer() 
-    security_factors = SecurityFactorsSerializer()
+    security_factors = SecurityFactorsSerializer(read_only =True)
     class Meta:
         model = SecuritySafety
         fields = ['id','labs','cabins', 'building','wall','external_factors','security_factors', 'issue','response']
@@ -28,7 +28,7 @@ class AdminSecuritySafetySerializer(ModelSerializer):
 class AdminTeachersSerializer(ModelSerializer):
     issue = IssueSerializer(read_only =True)
     response = ResponseSerializer() 
-    material_one = MaterialSerializer()
+    material_one = MaterialSerializer(read_only =True)
     class Meta:
         model = Teachers
         fields = ['material_one', 'issue', 'response']
@@ -133,15 +133,15 @@ class AdminStudentsEvaluationFormSerializer(ModelSerializer):
         students_affairs_data = validated_data.pop('students_affairs')
         response_data = students_affairs_data.pop('response')
         students_affairs = StudentsAffairs.objects.get(pk = instance.students_affairs.id)
+        print (students_affairs) # update only for the first record in the response table if the table is empty with one record
         try:
             if instance.students_affairs.response:
-                print (instance.students_affairs.response) 
+                #print (instance.students_affairs.response) 
                 update_response_if_not_empty(response_data, StudentAffairsResponse, students_affairs)
         except ObjectDoesNotExist:
                 create_response_if_not_empty(response_data, StudentAffairsResponse, students_affairs)
         instance.students_affairs = students_affairs
         return instance
-
 class AdminWorkersEvaluationFormSerializer(ModelSerializer):
     workers_affairs = AdminWorkersAffairsSerializer()
     class Meta:
