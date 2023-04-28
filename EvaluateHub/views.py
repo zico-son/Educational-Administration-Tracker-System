@@ -295,6 +295,6 @@ class EvaluationFormViewSet(NoUpdateViewSet):
         return {'user_id': self.request.user.id}
     
     def get_permissions(self):
-        if self.request.method == 'POST' or self.request.method == 'PUT' or self.request.method == 'PATCH':
+        if self.request.method == 'POST':
             return [IsTracker()]
         return [IsManagerOrIsViceOrIsTracker()]
