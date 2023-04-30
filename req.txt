@@ -1,11 +1,11 @@
 django
 djoser
+django-filter
 djangorestframework_simplejwt
 django-debug-toolbar
 django-cors-headers
 djangorestframework
-drf-nested-routers 
-drf-writable-nested
 dj-database-url
 django-environ
 psycopg2
+gunicorn
