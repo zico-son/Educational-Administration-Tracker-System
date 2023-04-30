@@ -6,6 +6,9 @@ Pipfile.lock
 Pipfile
 IssuesHub/
 .vscode/
+static
+staticfiles
+db.sqlite3
 # C extensions
 *.so
 
