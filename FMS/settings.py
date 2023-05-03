@@ -162,9 +162,15 @@ SIMPLE_JWT = {
 }
 
 DJOSER = {
+    'HIDE_USERS': False,
+    'PERMISSIONS': {
+    'user_list': ['EvaluateHub.permissions.IsSystemAdmin'],
+    'user_create': ['EvaluateHub.permissions.IsSystemAdmin'],
+    },
     'SERIALIZERS':{
     'user_create': 'core.serializers.UserCreateSerializer',
-    'current_user': 'core.serializers.UserSerializer'
+    'current_user': 'core.serializers.UserSerializer',
+    'user': 'core.serializers.UserSerializer',
     }   
 }
 
