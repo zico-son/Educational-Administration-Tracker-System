@@ -116,23 +116,23 @@ class IsManagerOrIsViceOrIsDecentralizationAdmin(BasePermission):
 
 class IsManagerOrIsViceOrIsProductionUnitAdmin(BasePermission):
     def has_permission(self, request, view):
-        return permission_exception_handler(request, 'manager') or permission_exception_handler(request, 'production_unit_admin')
+        return permission_exception_handler(request, 'manager') or permission_exception_handler(request, 'production_unit_admin') or permission_exception_handler(request, 'vice')
 
 class IsManagerOrIsViceOrIsEnvironmentPopulationAdmin(BasePermission):
     def has_permission(self, request, view):
-        return permission_exception_handler(request, 'manager') or permission_exception_handler(request, 'environment_population_admin')
+        return permission_exception_handler(request, 'manager') or permission_exception_handler(request, 'environment_population_admin') or permission_exception_handler(request, 'vice')
 
 class IsManagerOrIsViceOrIsLaboratoriesAdmin(BasePermission):
     def has_permission(self, request, view):
-        return permission_exception_handler(request, 'manager') or permission_exception_handler(request, 'laboratories_admin')
+        return permission_exception_handler(request, 'manager') or permission_exception_handler(request, 'laboratories_admin') or permission_exception_handler(request, 'vice')
 
 class IsManagerOrIsViceOrIsQualityAdmin(BasePermission):
     def has_permission(self, request, view):
-        return permission_exception_handler(request, 'manager') or permission_exception_handler(request, 'quality_admin')
+        return permission_exception_handler(request, 'manager') or permission_exception_handler(request, 'quality_admin') or permission_exception_handler(request, 'vice')
 
 class IsManagerOrIsViceOrIsSystemAdmin(BasePermission):
     def has_permission(self, request, view):
-        return permission_exception_handler(request, 'manager') or permission_exception_handler(request, 'system_admin')
+        return permission_exception_handler(request, 'manager') or permission_exception_handler(request, 'system_admin') or permission_exception_handler(request, 'vice')
 
 class IsManagerOrIsViceOrIsTracker(BasePermission):
     def has_permission(self, request, view):
