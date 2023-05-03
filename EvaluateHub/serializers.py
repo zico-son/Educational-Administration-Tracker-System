@@ -1,4 +1,5 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer, Serializer
 from django.db import transaction
 from django.conf import settings
 from EvaluateHub.models import * 
@@ -239,3 +240,15 @@ class EvaluationFormSerializer(ModelSerializer):
 
             evaluation_form = EvaluationForm.objects.create(students_affairs=students_affairs, workers_affairs=workers_affairs, strategic_planning=strategic_planning, administration=administration, training=training, nutrition=nutrition, cooperative=cooperative, laboratories=laboratories, decentralization=decentralization, production_unit=production_unit, environment_population=environment_population, quality=quality,security_safety=security_safety,teachers = teachers, created_by =created_by,**validated_data)
             return evaluation_form
+
+
+
+class CreatedBySerializer(Serializer):
+    first_name = serializers.CharField(max_length=255)
+    last_name = serializers.CharField(max_length=255)
+
+class EvaluationFormInfoSerializer(ModelSerializer):
+    created_by = CreatedBySerializer()
+    class Meta:
+        model = EvaluationForm
+        fields = ['school_name', 'school_id', 'school_level', 'created_at', 'created_by']

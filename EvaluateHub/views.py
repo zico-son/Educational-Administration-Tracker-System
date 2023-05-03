@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from EvaluateHub.models import *
 from EvaluateHub.serializers import *
 from EvaluateHub.admin_serializers import *
@@ -298,3 +298,22 @@ class EvaluationFormViewSet(NoUpdateViewSet):
         if self.request.method == 'POST':
             return [IsTracker()]
         return [IsManagerOrIsViceOrIsTracker()]
+
+
+class EvaluationFormInfoViewSet(ReadOnlyModelViewSet):
+    pagination_class = CustomPagination
+    permission_classes = [IsManagerOrIsViceOrIsTracker]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    ordering_fields = ['created_at']
+    filterset_fields = ['school_level']
+    search_fields = ['school_name', 'school_id', 'school_level']
+    serializer_class = EvaluationFormInfoSerializer
+    def get_queryset(self):
+        if self.request.user.role == 'tracker':
+            return EvaluationForm.objects \
+                .filter(created_by=self.request.user.id) \
+                .select_related('created_by') \
+                .all()
+        return EvaluationForm.objects \
+            .select_related('created_by') \
+            .all()

@@ -4,6 +4,7 @@ from EvaluateHub.views import *
 
 router = routers.DefaultRouter()
 router.register('evaluation-form', EvaluationFormViewSet, basename='evaluation-form')
+router.register('form-info', EvaluationFormInfoViewSet, basename='form-info')
 router.register('students-affairs', StudentsAffairsViewSet, basename='students-affairs')
 router.register('security-safety', SecuritySafetyViewSet, basename='security-safety')
 router.register('teachers', TeachersViewSet, basename='teachers')
