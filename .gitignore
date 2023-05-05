@@ -9,6 +9,8 @@ IssuesHub/
 static
 staticfiles
 db.sqlite3
+.VSCodeCounter
+migrations
 # C extensions
 *.so
 
