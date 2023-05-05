@@ -212,6 +212,29 @@ class EvaluationForm(models.Model):
     class Meta:
         ordering = ["-created_at"]
 
+class SchoolInfo(models.Model):
+    total_schools = models.IntegerField(null=True, blank=True)
+    last_school_added = models.CharField(max_length=255, null=True, blank=True)
+    security_safety_issues= models.IntegerField(null=True, blank=True)
+    security_safety_responses= models.IntegerField(null=True, blank=True)
+    nutrition_issues = models.IntegerField(null=True, blank=True)
+    nutrition_responses = models.IntegerField(null=True, blank=True)
+    cooperative_issues = models.IntegerField(null=True, blank=True)
+    cooperative_responses = models.IntegerField(null=True, blank=True)
+    training_issues = models.IntegerField(null=True, blank=True)
+    training_responses = models.IntegerField(null=True, blank=True)
+    decentralization_issues = models.IntegerField(null=True, blank=True)
+    decentralization_responses = models.IntegerField(null=True, blank=True)
+    production_unit_issues = models.IntegerField(null=True, blank=True)
+    production_unit_responses = models.IntegerField(null=True, blank=True)
+    environment_population_issues = models.IntegerField(null=True, blank=True)
+    environment_population_responses = models.IntegerField(null=True, blank=True)
+    administration_issues = models.IntegerField(null=True, blank=True)
+    administration_responses = models.IntegerField(null=True, blank=True)
+    strategic_planning_issues = models.IntegerField(null=True, blank=True)
+    strategic_planning_responses = models.IntegerField(null=True, blank=True)
+
+
 # Issues Models
 class StudentAffairsIssue(models.Model):
     issue = models.TextField(null=True, blank=True)
