@@ -233,6 +233,8 @@ class SchoolInfo(models.Model):
     administration_responses = models.IntegerField(null=True, blank=True)
     strategic_planning_issues = models.IntegerField(null=True, blank=True)
     strategic_planning_responses = models.IntegerField(null=True, blank=True)
+    laboratories_issues = models.IntegerField(null=True, blank=True)
+    laboratories_responses = models.IntegerField(null=True, blank=True)
 
 
 # Issues Models

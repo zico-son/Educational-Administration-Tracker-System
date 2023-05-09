@@ -380,3 +380,13 @@ class AdministrationStaticsSerializer(serializers.Serializer):
     plan_noexist = serializers.IntegerField()
     training_on_plan_exits = serializers.IntegerField()
     training_on_plan_noexist = serializers.IntegerField()
+
+class LaboratoriesStaticsSerializer(serializers.Serializer):
+    work_validity_exits = serializers.IntegerField()
+    work_validity_noexist = serializers.IntegerField()
+    ory_association = serializers.IntegerField()
+    networks = serializers.IntegerField()
+    computers = serializers.IntegerField()
+    evaluation = serializers.IntegerField()
+    tilo = serializers.IntegerField()
+

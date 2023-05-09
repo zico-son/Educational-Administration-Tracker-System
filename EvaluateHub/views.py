@@ -1,7 +1,7 @@
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.db.models import Q
 from rest_framework.response import Response
-from rest_framework.viewsets import ReadOnlyModelViewSet, ViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet, ViewSet, ModelViewSet
 from EvaluateHub.models import *
 from EvaluateHub.serializers import *
 from EvaluateHub.admin_serializers import *
@@ -606,5 +606,32 @@ class AdministrationStaticsViewSet(ViewSet):
                 'no_responses': administration_no_responses,
             },
             'administration': serializer.data,
+        }
+        return Response(data)
+
+class LaboratoriesStaticsViewSet(ViewSet):
+    def list (self ,request, pk =None):
+        school_data = SchoolInfo.objects.get(pk=1)
+        laboratories_no_issues = school_data.total_schools - school_data.laboratories_issues
+        laboratories_no_responses = school_data.laboratories_issues - school_data.laboratories_responses
+        laboratories = Laboratories.objects.aggregate(
+            work_validity_exits = Count('work_validity', filter = Q(work_validity=exits)),
+            work_validity_noexist = Count('work_validity', filter = Q(work_validity=noexist)),
+            ory_association = Sum('ory_association'),
+            networks = Sum('networks'),
+            computers = Sum('computers'),
+            evaluation = Sum('evaluation'),
+            tilo = Sum('tilo'),)
+        serializer = LaboratoriesStaticsSerializer(laboratories)
+        data = {
+            'system_info': {
+                'total_schools': school_data.total_schools,
+                'last_school_added': school_data.last_school_added,
+                'issues': school_data.laboratories_issues,
+                'no_issues': laboratories_no_issues,
+                'responses': school_data.laboratories_responses,
+                'no_responses': laboratories_no_responses,
+            },
+            'laboratories': serializer.data,
         }
         return Response(data)

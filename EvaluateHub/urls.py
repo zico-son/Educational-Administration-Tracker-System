@@ -9,6 +9,7 @@ router.register('students-affairs', StudentsAffairsViewSet, basename='students-a
 router.register('teachers', TeachersViewSet, basename='teachers')
 router.register('workers-affairs', WorkersAffairsViewSet, basename='workers-affairs')
 router.register('laboratories', LaboratoriesViewSet, basename='laboratories')
+router.register('laboratories-statics', LaboratoriesStaticsViewSet, basename='laboratories-statics')
 router.register('quality', QualityViewSet, basename='quality')
 router.register('security-safety', SecuritySafetyViewSet, basename='security-safety')
 router.register('security-safety-statics', SecuritySafetyStaticsViewSet, basename='security-safety-statics')
