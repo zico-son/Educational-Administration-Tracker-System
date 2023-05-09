@@ -252,3 +252,131 @@ class EvaluationFormInfoSerializer(ModelSerializer):
     class Meta:
         model = EvaluationForm
         fields = ['school_name', 'school_id', 'school_level', 'created_at', 'created_by']
+
+class SecurityFactorsStaticsSerializer(serializers.Serializer):
+    fire_line_valid = serializers.IntegerField()
+    fire_line_invalid = serializers.IntegerField()
+    tanks_valid = serializers.IntegerField()
+    tanks_invalid = serializers.IntegerField()
+    buckets_valid = serializers.IntegerField()
+    buckets_invalid = serializers.IntegerField()
+    fire_extinguishers_valid = serializers.IntegerField()
+    fire_extinguishers_invalid = serializers.IntegerField()
+
+class SecuritySafetyStaticsSerializer(serializers.Serializer):
+    labs_disciplined = serializers.IntegerField()
+    labs_undisciplined = serializers.IntegerField()
+    cabins_disciplined = serializers.IntegerField()
+    cabins_undisciplined = serializers.IntegerField()
+    building_disciplined = serializers.IntegerField()
+    building_undisciplined = serializers.IntegerField()
+    wall_disciplined = serializers.IntegerField()
+    wall_undisciplined = serializers.IntegerField()
+    external_factors_disciplined = serializers.IntegerField()
+    external_factors_undisciplined = serializers.IntegerField()
+
+
+class NutritionStaticsSerializer(serializers.Serializer):
+    daily_received_exits = serializers.IntegerField()
+    daily_received_noexist = serializers.IntegerField()
+    daily_served_exits = serializers.IntegerField()
+    daily_served_noexist = serializers.IntegerField()
+    disciplined_distribution_exits = serializers.IntegerField()
+    disciplined_distribution_noexist = serializers.IntegerField()
+    health_certificate_exits = serializers.IntegerField()
+    health_certificate_noexist = serializers.IntegerField()
+    not_stored_periods_exits = serializers.IntegerField()
+    not_stored_periods_noexist = serializers.IntegerField()
+
+
+class CooperativeStaticsSerializer(serializers.Serializer):
+    existing_authorized_items_exits = serializers.IntegerField()
+    existing_authorized_items_noexist = serializers.IntegerField()
+    drag_running_exits = serializers.IntegerField()
+    drag_running_noexist = serializers.IntegerField()
+    drag_profits_exits = serializers.IntegerField()
+    drag_profits_noexist = serializers.IntegerField()
+
+class TrainingStaticsSerializer(serializers.Serializer):
+    teachers_training_exits = serializers.IntegerField()
+    teachers_training_noexist = serializers.IntegerField()
+    training_plan_exits = serializers.IntegerField()
+    training_plan_noexist = serializers.IntegerField()
+    training_plan_activation_exits = serializers.IntegerField()
+    training_plan_activation_noexist = serializers.IntegerField()
+
+
+class DecentralizationStaticsSerializer(serializers.Serializer):
+    board_of_trustees_exits = serializers.IntegerField()
+    board_of_trustees_noexist = serializers.IntegerField()
+    decentralization_committee_exits = serializers.IntegerField()
+    decentralization_committee_noexist = serializers.IntegerField()
+    settlement_exits = serializers.IntegerField()
+    settlement_noexist = serializers.IntegerField()
+    exchange_exits = serializers.IntegerField()
+    exchange_noexist = serializers.IntegerField()
+    plan_exits = serializers.IntegerField()
+    plan_noexist = serializers.IntegerField()
+    append_exits = serializers.IntegerField()
+    append_noexist = serializers.IntegerField()
+
+
+class ProductionUnitStaticsSerializer(serializers.Serializer):
+    profit_distribution_exits = serializers.IntegerField()
+    profit_distribution_noexist = serializers.IntegerField()
+    supply_exits = serializers.IntegerField()
+    supply_noexist = serializers.IntegerField()
+    activation_exits = serializers.IntegerField()
+    activation_noexist = serializers.IntegerField()
+    certified_exits = serializers.IntegerField()
+    certified_noexist = serializers.IntegerField()
+
+
+class StrategicPlanningStaticsSerializer(serializers.Serializer):
+    obstacles_exits = serializers.IntegerField()
+    obstacles_noexist = serializers.IntegerField()
+    plan_activation_exits = serializers.IntegerField()
+    plan_activation_noexist = serializers.IntegerField()
+    team_building_exits = serializers.IntegerField()
+    team_building_noexist = serializers.IntegerField()
+    plan_exits = serializers.IntegerField()
+    plan_noexist = serializers.IntegerField()
+    analysis_exits = serializers.IntegerField()
+    analysis_noexist = serializers.IntegerField()
+
+class EnvironmentPopulationStaticsSerializer(serializers.Serializer):
+    toilets_health_procedures_exits = serializers.IntegerField()
+    toilets_health_procedures_noexist = serializers.IntegerField()
+    health_file_exits = serializers.IntegerField()
+    health_file_noexist = serializers.IntegerField()
+    diagnosis_health_plan_exits = serializers.IntegerField()
+    diagnosis_health_plan_noexist = serializers.IntegerField()
+    check_health_plan_exits = serializers.IntegerField()
+    check_health_plan_noexist = serializers.IntegerField()
+    activities_exits = serializers.IntegerField()
+    activities_noexist = serializers.IntegerField()
+    labs_health_procedures_exits = serializers.IntegerField()
+    labs_health_procedures_noexist = serializers.IntegerField()
+
+
+class AdministrationStaticsSerializer(serializers.Serializer):
+    execution_plan_exits = serializers.IntegerField()
+    execution_plan_noexist = serializers.IntegerField()
+    team_building_exits = serializers.IntegerField()
+    team_building_noexist = serializers.IntegerField()
+    analysis_exits = serializers.IntegerField()
+    analysis_noexist = serializers.IntegerField()
+    activities_activation_exits = serializers.IntegerField()
+    activities_activation_noexist = serializers.IntegerField()
+    obstacles_exits = serializers.IntegerField()
+    obstacles_noexist = serializers.IntegerField()
+    predicted_crisis_exits = serializers.IntegerField()
+    predicted_crisis_noexist = serializers.IntegerField()
+    communication_system_exits = serializers.IntegerField()
+    communication_system_noexist = serializers.IntegerField()
+    risks_indicators_exits = serializers.IntegerField()
+    risks_indicators_noexist = serializers.IntegerField()
+    plan_exits = serializers.IntegerField()
+    plan_noexist = serializers.IntegerField()
+    training_on_plan_exits = serializers.IntegerField()
+    training_on_plan_noexist = serializers.IntegerField()
