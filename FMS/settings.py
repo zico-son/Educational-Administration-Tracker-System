@@ -162,6 +162,8 @@ SIMPLE_JWT = {
 }
 
 DJOSER = {
+    # 'LOGIN_FIELD': 'email',
+    'SEND_CONFIRMATION_EMAIL':True,
     'HIDE_USERS': False,
     'PERMISSIONS': {
     'user_list': ['EvaluateHub.permissions.IsSystemAdmin'],
@@ -176,3 +178,9 @@ DJOSER = {
     }   
 }
 
+DEFAULT_FROM_EMAIL = 'zicocomlimited@gmail.com'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' 
+EMAIL_HOST_PASSWORD = env('SENDGRID_API_KEY')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
