@@ -166,11 +166,13 @@ DJOSER = {
     'PERMISSIONS': {
     'user_list': ['EvaluateHub.permissions.IsSystemAdmin'],
     'user_create': ['EvaluateHub.permissions.IsSystemAdmin'],
+    'user_delete': ['EvaluateHub.permissions.IsSystemAdmin'],
     },
     'SERIALIZERS':{
     'user_create': 'core.serializers.UserCreateSerializer',
     'current_user': 'core.serializers.UserSerializer',
     'user': 'core.serializers.UserSerializer',
+    'user_delete': 'core.serializers.UserDeleteSerializer',
     }   
 }
 
