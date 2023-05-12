@@ -22,19 +22,6 @@ class StudentsAffairs(models.Model):
     transfers_from_school = models.IntegerField(null=True, blank=True)
     transferred_files = models.CharField(max_length=11, null=True, blank=True, choices=choices)
 
-class WorkersAffairs(models.Model):
-    choices =[
-        (exits, 1),
-        (noexist, 0),
-    ]
-    registered = models.IntegerField(null=True, blank=True)
-    present = models.IntegerField(null=True, blank=True)
-    absent = models.IntegerField(null=True, blank=True)
-    negatives =models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    def save(self, *args, **kwargs):
-        self.absent = self.registered - self.present
-        super(WorkersAffairs, self).save(*args, **kwargs)
-
 class SecurityFactors(models.Model):
     choices =[
         (valid, 1),
@@ -58,89 +45,12 @@ class SecuritySafety(models.Model):
     security_factors = models.OneToOneField(SecurityFactors, on_delete=models.CASCADE, related_name="security_factors")
 
 
-
-
-class Nutrition(models.Model):
-    choices =[
-        (exits, 1),
-        (noexist, 0),
-    ]
-    daily_received = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    daily_served = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    disciplined_distribution = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    health_certificate = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    not_stored_periods = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-
-
-class Cooperative(models.Model):
-    choices =[
-        (exits, 1),
-        (noexist, 0),
-    ]
-    existing_authorized_items = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    drag_running = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    drag_profits = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-class Quality(models.Model):
-    first_year_one = models.IntegerField(null=True, blank=True)
-    second_year_one = models.IntegerField(null=True, blank=True)
-    third_year_one = models.IntegerField(null=True, blank=True)
-
-    first_year_two = models.IntegerField(null=True, blank=True)
-    second_year_two = models.IntegerField(null=True, blank=True)
-    third_year_two = models.IntegerField(null=True, blank=True)
-
-    first_year_three = models.IntegerField(null=True, blank=True)
-    second_year_three = models.IntegerField(null=True, blank=True)
-    third_year_three = models.IntegerField(null=True, blank=True)
-    
-
-class Training(models.Model):
-    choices =[
-        (exits, 1),
-        (noexist, 0),
-    ]
-    teachers_training = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    training_plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    training_plan_activation = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-class Laboratories(models.Model):
-    choices =[
-        (exits, 1),
-        (noexist, 0),
-    ]
-    work_validity = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    ory_association = models.IntegerField(null=True, blank=True)
-    networks =models.IntegerField(null=True, blank=True)
-    computers = models.IntegerField(null=True, blank=True)
-    evaluation = models.IntegerField(null=True, blank=True)
-    tilo = models.IntegerField(null=True, blank=True)
-
 class Material (models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
     increase = models.IntegerField(null=True, blank=True)
     decrease = models.IntegerField(null=True, blank=True)
 class Teachers(models.Model):
     material_one = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True)
-class Decentralization(models.Model):
-    choices =[
-        (exits, 1),
-        (noexist, 0),
-    ]
-    board_of_trustees = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    decentralization_committee = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    settlement = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    exchange = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    append = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-
-class ProductionUnit(models.Model):
-    choices =[
-        (exits, 1),
-        (noexist, 0),
-    ]
-    profit_distribution = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    supply = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    activation = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    certified = models.CharField(max_length=11, null=True, blank=True, choices=choices)
 
 class StrategicPlanning(models.Model):
     choices =[
@@ -153,18 +63,6 @@ class StrategicPlanning(models.Model):
     plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
     analysis = models.CharField(max_length=11, null=True, blank=True, choices=choices)
 
-
-class EnvironmentPopulation(models.Model):
-    choices =[
-        (exits, 1),
-        (noexist, 0),
-    ]
-    toilets_health_procedures = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    health_file = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    diagnosis_health_plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    check_health_plan= models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    activities = models.CharField(max_length=11, null=True, blank=True, choices=choices)
-    labs_health_procedures = models.CharField(max_length=11, null=True, blank=True, choices=choices)
 class Administration(models.Model):
     choices =[
         (exits, 1),
@@ -180,6 +78,109 @@ class Administration(models.Model):
     risks_indicators = models.CharField(max_length=11, null=True, blank=True, choices=choices)
     plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
     training_on_plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+class Quality(models.Model):
+    first_year_one = models.IntegerField(null=True, blank=True)
+    second_year_one = models.IntegerField(null=True, blank=True)
+    third_year_one = models.IntegerField(null=True, blank=True)
+
+    first_year_two = models.IntegerField(null=True, blank=True)
+    second_year_two = models.IntegerField(null=True, blank=True)
+    third_year_two = models.IntegerField(null=True, blank=True)
+
+    first_year_three = models.IntegerField(null=True, blank=True)
+    second_year_three = models.IntegerField(null=True, blank=True)
+    third_year_three = models.IntegerField(null=True, blank=True)
+
+class WorkersAffairs(models.Model):
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    registered = models.IntegerField(null=True, blank=True)
+    present = models.IntegerField(null=True, blank=True)
+    absent = models.IntegerField(null=True, blank=True)
+    negatives =models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    def save(self, *args, **kwargs):
+        self.absent = self.registered - self.present
+        super(WorkersAffairs, self).save(*args, **kwargs)
+
+
+class Training(models.Model):
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    teachers_training = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    training_plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    training_plan_activation = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+
+class Nutrition(models.Model):
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    daily_received = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    daily_served = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    disciplined_distribution = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    health_certificate = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    not_stored_periods = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+
+class Decentralization(models.Model):
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    board_of_trustees = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    decentralization_committee = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    settlement = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    exchange = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    append = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+
+class Cooperative(models.Model):
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    existing_authorized_items = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    drag_running = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    drag_profits = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+
+class Laboratories(models.Model):
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    work_validity = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    ory_association = models.IntegerField(null=True, blank=True)
+    networks =models.IntegerField(null=True, blank=True)
+    computers = models.IntegerField(null=True, blank=True)
+    evaluation = models.IntegerField(null=True, blank=True)
+    tilo = models.IntegerField(null=True, blank=True)
+
+
+class ProductionUnit(models.Model):
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    profit_distribution = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    supply = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    activation = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    certified = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+
+
+class EnvironmentPopulation(models.Model):
+    choices =[
+        (exits, 1),
+        (noexist, 0),
+    ]
+    toilets_health_procedures = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    health_file = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    diagnosis_health_plan = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    check_health_plan= models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    activities = models.CharField(max_length=11, null=True, blank=True, choices=choices)
+    labs_health_procedures = models.CharField(max_length=11, null=True, blank=True, choices=choices)
 
 class EvaluationForm(models.Model):
     school_id = models.CharField(max_length=200, null=True, blank=True)
