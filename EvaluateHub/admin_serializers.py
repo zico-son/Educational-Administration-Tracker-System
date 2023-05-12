@@ -103,7 +103,7 @@ class AdminLaboratoriesSerializer(ModelSerializer):
     response = ResponseSerializer() 
     class Meta:
         model = Laboratories
-        fields = ['id', 'work_validity','networks','computers','evaluation', 'tilo',  'issue', 'response']
+        fields = ['id', 'work_validity','ory_association','networks','computers','evaluation', 'tilo',  'issue', 'response']
         read_only_fields = ['id', 'work_validity','networks','computers','evaluation', 'tilo',  'issue']
 
 class AdminProductionUnitSerializer(ModelSerializer):
