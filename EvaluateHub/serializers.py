@@ -389,3 +389,9 @@ class EnvironmentPopulationStaticsSerializer(serializers.Serializer):
     labs_health_procedures_exits = serializers.IntegerField()
     labs_health_procedures_noexist = serializers.IntegerField()
 
+class WorkersAffairsStaticsSerializer(serializers.Serializer):
+    percentage_of_absence_gt_10 = serializers.IntegerField()
+    percentage_of_absence_gt_20 = serializers.IntegerField()
+    percentage_of_absence_gt_30 = serializers.IntegerField()
+    percentage_of_absence_gt_40 = serializers.IntegerField()
+    percentage_of_absence_gt_50 = serializers.IntegerField()

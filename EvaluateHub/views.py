@@ -635,3 +635,29 @@ class LaboratoriesStaticsViewSet(ViewSet):
             'laboratories': serializer.data,
         }
         return Response(data)
+
+class WorkersAffairsStaticsViewSet(ViewSet):
+    def list (self ,request, pk =None):
+        school_data = SchoolInfo.objects.get(pk=1)
+        workers_affairs_no_issues = school_data.total_schools - school_data.workers_affairs_issues
+        workers_affairs_no_responses = school_data.workers_affairs_issues - school_data.workers_affairs_responses
+        workers_affairs = WorkersAffairs.objects.aggregate(
+            percentage_of_absence_gt_10 = Count('percentage_of_absence', filter = Q(percentage_of_absence__gte=10)),
+            percentage_of_absence_gt_20 = Count('percentage_of_absence', filter = Q(percentage_of_absence__gte=20)),
+            percentage_of_absence_gt_30 = Count('percentage_of_absence', filter = Q(percentage_of_absence__gte=30)),
+            percentage_of_absence_gt_40 = Count('percentage_of_absence', filter = Q(percentage_of_absence__gte=40)),
+            percentage_of_absence_gt_50 = Count('percentage_of_absence', filter = Q(percentage_of_absence__gte=50)),)
+        serializer = WorkersAffairsStaticsSerializer(workers_affairs)
+        data = {
+            'system_info': {
+                'total_schools': school_data.total_schools,
+                'last_school_added': school_data.last_school_added,
+                'issues': school_data.workers_affairs_issues,
+                'no_issues': workers_affairs_no_issues,
+                'responses': school_data.workers_affairs_responses,
+                'no_responses': workers_affairs_no_responses,
+            },
+            'workers_affairs': serializer.data,
+        }
+        return Response(data)
+
