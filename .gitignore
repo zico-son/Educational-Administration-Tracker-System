@@ -10,6 +10,8 @@ static
 staticfiles
 db.sqlite3
 .VSCodeCounter
+FMS-dummies/
+notes.py
 migrations
 # C extensions
 *.so
