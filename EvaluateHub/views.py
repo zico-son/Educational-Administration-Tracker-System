@@ -16,7 +16,7 @@ class StudentsAffairsViewSet(NoPostViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['id', 'school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('students_affairs__first_class') \
         .select_related('students_affairs__issue') \
@@ -34,7 +34,7 @@ class WorkersAffairsViewSet(NoPostViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['id', 'school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('workers_affairs__issue') \
         .select_related('workers_affairs__response') \
@@ -51,7 +51,7 @@ class SecuritySafetyViewSet(NoPostViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['id', 'school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('security_safety__security_factors') \
         .select_related('security_safety__issue') \
@@ -69,7 +69,7 @@ class TeachersViewSet(NoPostViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['id', 'school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('teachers__material_one') \
         .select_related('teachers__issue') \
@@ -87,7 +87,7 @@ class StrategicPlanningViewSet(NoPostViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['id', 'school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('strategic_planning__issue') \
         .select_related('strategic_planning__response') \
@@ -104,7 +104,7 @@ class AdministrationViewSet(NoPostViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['id', 'school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('administration__issue') \
         .select_related('administration__response') \
@@ -121,7 +121,7 @@ class TrainingViewSet(NoPostViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['id', 'school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('training__issue') \
         .select_related('training__response') \
@@ -138,7 +138,7 @@ class NutritionViewSet(NoPostViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['id', 'school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('nutrition__issue') \
         .select_related('nutrition__response') \
@@ -155,7 +155,7 @@ class CooperativeViewSet(NoPostViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['id', 'school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('cooperative__issue') \
         .select_related('cooperative__response') \
@@ -172,7 +172,7 @@ class LaboratoriesViewSet(NoPostViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['id', 'school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('laboratories__issue') \
         .select_related('laboratories__response') \
@@ -189,7 +189,7 @@ class DecentralizationViewSet(NoPostViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['id', 'school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('decentralization__issue') \
         .select_related('decentralization__response') \
@@ -206,7 +206,7 @@ class ProductionUnitViewSet(NoPostViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['id', 'school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('production_unit__issue') \
         .select_related('production_unit__response') \
@@ -223,7 +223,7 @@ class QualityViewSet(NoPostViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['id', 'school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('quality__issue') \
         .select_related('quality__response') \
@@ -240,7 +240,7 @@ class EnvironmentPopulationViewSet(NoPostViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['id', 'school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('environment_population__issue') \
         .select_related('environment_population__response') \
@@ -308,7 +308,7 @@ class EvaluationFormInfoViewSet(ReadOnlyModelViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['created_at']
     filterset_fields = ['school_level']
-    search_fields = ['school_name', 'school_id', 'school_level']
+    search_fields = ['school_name']
     serializer_class = EvaluationFormInfoSerializer
     def get_queryset(self):
         if self.request.user.role == 'tracker':
