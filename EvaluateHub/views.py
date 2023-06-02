@@ -697,3 +697,30 @@ class StudentsAffairsStaticsViewSet(ViewSet):
                 }
         }
         return Response(data)
+
+class QualityStaticsViewSet(ViewSet):
+    def list (self ,request, pk =None):
+        school_data = SchoolInfo.objects.get(pk=1)
+        quality_no_issues = school_data.total_schools - school_data.quality_issues
+        quality_no_responses = school_data.quality_issues - school_data.quality_responses
+
+        quality_with_issues = QualityIssue.objects.only('id').all()
+        print (quality_with_issues)
+        quality_queryset = Quality.objects.exclude(issue__in=quality_with_issues)
+        print (quality_queryset)
+        queryset = EvaluationForm.objects.filter(quality__in=quality_queryset)
+        print (queryset)
+
+        serializer = QualityStaticsSerializer(queryset, many=True)
+        data = {
+            'system_info': {
+                'total_schools': school_data.total_schools,
+                'last_school_added': school_data.last_school_added,
+                'issues': school_data.quality_issues,
+                'no_issues': quality_no_issues,
+                'responses': school_data.quality_responses,
+                'no_responses': quality_no_responses,
+            },
+            'quality': serializer.data,
+        }
+        return Response(data)

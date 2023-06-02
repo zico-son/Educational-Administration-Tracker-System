@@ -87,7 +87,7 @@ class QualitySerializer(ModelSerializer):
     response = ResponseSerializer(read_only = True) 
     class Meta:
         model = Quality
-        fields = ['id','first_year_one','second_year_one', 'third_year_one', 'first_year_two', 'second_year_two', 'third_year_two', 'first_year_three', 'second_year_three', 'third_year_three','issue', 'response']
+        fields = ['id','first_year_one', 'second_year_one', 'third_year_one', 'fourth_year_one', 'fifth_year_one', 'sixth_year_one', 'first_year_two', 'second_year_two', 'third_year_two', 'fourth_year_two', 'fifth_year_two', 'sixth_year_two', 'first_year_three', 'second_year_three', 'third_year_three', 'fourth_year_three', 'fifth_year_three', 'sixth_year_three', 'issue', 'response']
 
 class WorkersAffairsSerializer(ModelSerializer):
     issue = IssueSerializer()
@@ -427,3 +427,8 @@ class StudentsAffairsStaticsSerializer(serializers.Serializer):
     percentage_of_registered_primary = serializers.FloatField()
     percentage_of_registered_intermediate = serializers.FloatField()
     percentage_of_registered_secondary = serializers.FloatField()
+
+
+class QualityStaticsSerializer(serializers.Serializer):
+    school_name = serializers.CharField()
+    school_level = serializers.CharField()

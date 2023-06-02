@@ -13,6 +13,7 @@ router.register('workers-affairs-statics', WorkersAffairsStaticsViewSet, basenam
 router.register('laboratories', LaboratoriesViewSet, basename='laboratories')
 router.register('laboratories-statics', LaboratoriesStaticsViewSet, basename='laboratories-statics')
 router.register('quality', QualityViewSet, basename='quality')
+router.register('quality-statics', QualityStaticsViewSet, basename='quality-statics')
 router.register('security-safety', SecuritySafetyViewSet, basename='security-safety')
 router.register('security-safety-statics', SecuritySafetyStaticsViewSet, basename='security-safety-statics')
 router.register('nutrition', NutritionViewSet, basename='nutrition')

@@ -94,14 +94,23 @@ class Quality(models.Model):
     first_year_one = models.IntegerField(null=True, blank=True)
     second_year_one = models.IntegerField(null=True, blank=True)
     third_year_one = models.IntegerField(null=True, blank=True)
+    fourth_year_one = models.IntegerField(null=True, blank=True)
+    fifth_year_one = models.IntegerField(null=True, blank=True)
+    sixth_year_one = models.IntegerField(null=True, blank=True)
 
     first_year_two = models.IntegerField(null=True, blank=True)
     second_year_two = models.IntegerField(null=True, blank=True)
     third_year_two = models.IntegerField(null=True, blank=True)
+    fourth_year_two = models.IntegerField(null=True, blank=True)
+    fifth_year_two = models.IntegerField(null=True, blank=True)
+    sixth_year_two = models.IntegerField(null=True, blank=True)
 
     first_year_three = models.IntegerField(null=True, blank=True)
     second_year_three = models.IntegerField(null=True, blank=True)
     third_year_three = models.IntegerField(null=True, blank=True)
+    fourth_year_three = models.IntegerField(null=True, blank=True)
+    fifth_year_three = models.IntegerField(null=True, blank=True)
+    sixth_year_three = models.IntegerField(null=True, blank=True)
 
 class WorkersAffairs(models.Model):
     choices =[
@@ -254,6 +263,8 @@ class SchoolInfo(models.Model):
     workers_affairs_responses = models.IntegerField(null=True, blank=True)
     students_affairs_issues = models.IntegerField(null=True, blank=True)
     students_affairs_responses = models.IntegerField(null=True, blank=True)
+    quality_issues = models.IntegerField(null=True, blank=True)
+    quality_responses = models.IntegerField(null=True, blank=True)
 
 
 # Issues Models
