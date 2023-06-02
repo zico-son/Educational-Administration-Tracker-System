@@ -5,7 +5,7 @@ charset-normalizer==3.1.0
 cryptography==40.0.2
 defusedxml==0.7.1
 dj-database-url==2.0.0
-Django==4.2
+Django==4.2.1
 django-cors-headers==3.14.0
 django-debug-toolbar==4.0.0
 django-environ==0.10.0
@@ -22,7 +22,7 @@ pycparser==2.21
 PyJWT==2.6.0
 python3-openid==3.2.0
 pytz==2023.3
-requests==2.29.0
+requests==2.31.0
 requests-oauthlib==1.3.1
 social-auth-app-django==5.2.0
 social-auth-core==4.4.2
