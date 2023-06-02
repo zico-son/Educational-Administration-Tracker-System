@@ -34,10 +34,20 @@ class AdminTeachersSerializer(ModelSerializer):
     issue = IssueSerializer(read_only =True)
     response = ResponseSerializer() 
     material_one = MaterialSerializer(read_only =True)
+    material_two = MaterialSerializer(read_only =True)
+    material_three = MaterialSerializer(read_only =True)
+    material_four = MaterialSerializer(read_only =True)
+    material_five = MaterialSerializer(read_only =True)
+    material_six = MaterialSerializer(read_only =True)
+    material_seven = MaterialSerializer(read_only =True)
+    material_eight = MaterialSerializer(read_only =True)
+    material_nine = MaterialSerializer(read_only =True)
+    material_ten = MaterialSerializer(read_only =True)
+    material_eleven = MaterialSerializer(read_only =True)
+    material_twelve = MaterialSerializer(read_only =True)
     class Meta:
         model = Teachers
-        fields = ['material_one', 'issue', 'response']
-        read_only_fields = ['material_one', 'issue']
+        fields = ['material_one', 'material_two', 'material_three', 'material_four', 'material_five', 'material_five', 'material_six', 'material_seven', 'material_eight', 'material_nine', 'material_ten', 'material_eleven', 'material_twelve', 'issue', 'response'] 
 
 class AdminStrategicPlanningSerializer(ModelSerializer):
     issue = IssueSerializer(read_only =True)

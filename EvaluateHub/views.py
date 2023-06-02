@@ -724,3 +724,19 @@ class QualityStaticsViewSet(ViewSet):
             'quality': serializer.data,
         }
         return Response(data)
+
+class TeachersStaticsViewSet(ViewSet):
+    def list (self ,request, pk =None):
+        school_data = SchoolInfo.objects.get(pk=1)
+        teachers_no_issues = school_data.total_schools - school_data.teachers_issues
+        teachers_no_responses = school_data.teachers_issues - school_data.teachers_responses
+        data = {
+            'system_info': {
+                'total_schools': school_data.total_schools,
+                'last_school_added': school_data.last_school_added,
+                'issues': school_data.teachers_issues,
+                'no_issues': teachers_no_issues,
+                'responses': school_data.teachers_responses,
+                'no_responses': teachers_no_responses,}
+        }
+        return Response(data)

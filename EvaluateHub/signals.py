@@ -36,6 +36,8 @@ def update_school_info(sender, instance, **kwargs):
         school_info.students_affairs_responses = StudentAffairsResponse.objects.count()
         school_info.quality_issues = QualityIssue.objects.count()
         school_info.quality_responses = QualityResponse.objects.count()
+        school_info.teachers_issues = TeachersIssue.objects.count()
+        school_info.teachers_responses = TeachersResponse.objects.count()
         school_info.save()
 
 @receiver(post_save, sender=SecuritySafetyResponse)
@@ -127,4 +129,11 @@ def update_quality_responses(sender, instance, **kwargs):
     if kwargs['created']:
         school_info = SchoolInfo.objects.get(pk=1)
         school_info.quality_responses = QualityResponse.objects.count()
+        school_info.save()
+
+@receiver(post_save, sender=TeachersResponse)
+def update_teachers_responses(sender, instance, **kwargs):
+    if kwargs['created']:
+        school_info = SchoolInfo.objects.get(pk=1)
+        school_info.teachers_responses = TeachersResponse.objects.count()
         school_info.save()

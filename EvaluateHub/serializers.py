@@ -5,7 +5,7 @@ from django.conf import settings
 from EvaluateHub.models import * 
 from core.models import User
 from EvaluateHub.utils import create_issue_if_not_empty
-
+import inflect
 class ClassRecordSerializer(ModelSerializer):
     class Meta:
         model = ClassRecord
@@ -64,9 +64,20 @@ class TeachersSerializer(ModelSerializer):
     issue = IssueSerializer()
     response = ResponseSerializer(read_only = True) 
     material_one = MaterialSerializer()
+    material_two = MaterialSerializer()
+    material_three = MaterialSerializer()
+    material_four = MaterialSerializer()
+    material_five = MaterialSerializer()
+    material_six = MaterialSerializer()
+    material_seven = MaterialSerializer()
+    material_eight = MaterialSerializer()
+    material_nine = MaterialSerializer()
+    material_ten = MaterialSerializer()
+    material_eleven = MaterialSerializer()
+    material_twelve = MaterialSerializer()
     class Meta:
         model = Teachers
-        fields = ['material_one', 'issue', 'response']
+        fields = ['material_one', 'material_two', 'material_three', 'material_four', 'material_five', 'material_six', 'material_seven', 'material_eight', 'material_nine', 'material_ten', 'material_eleven', 'material_twelve', 'issue', 'response']
 
 class StrategicPlanningSerializer(ModelSerializer):
     issue = IssueSerializer()
@@ -196,11 +207,16 @@ class EvaluationFormSerializer(ModelSerializer):
             security_safety = SecuritySafety.objects.create(security_factors= security_factors,**security_safety_data)
             create_issue_if_not_empty(issue_data, SecuritySafetyIssue, security_safety)
 
+            engine = inflect.engine()
             teachers_data = validated_data.pop('teachers')
-            material_one_data = teachers_data.pop('material_one')
-            material_one = Material.objects.create(**material_one_data)
+            materials_data = {}
+            for i in range(1, 13):
+                material_data = teachers_data.pop(f'material_{engine.number_to_words(i)}')
+                if material_data.get('name') != "":
+                    material = Material.objects.create(**material_data)
+                    materials_data[f'material_{engine.number_to_words(i)}'] = material
             issue_data = teachers_data.pop('issue')
-            teachers = Teachers.objects.create(material_one = material_one, **teachers_data)
+            teachers = Teachers.objects.create(**teachers_data, **materials_data)
             create_issue_if_not_empty(issue_data, TeachersIssue, teachers)
 
             workers_affairs_data = validated_data.pop('workers_affairs')

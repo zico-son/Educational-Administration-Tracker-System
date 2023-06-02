@@ -63,6 +63,17 @@ class Material (models.Model):
     decrease = models.IntegerField(null=True, blank=True)
 class Teachers(models.Model):
     material_one = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True)
+    material_two = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_two")
+    material_three = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_three")
+    material_four = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_four")
+    material_five = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_five")
+    material_six = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_six")
+    material_seven = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_seven")
+    material_eight = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_eight")
+    material_nine = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_nine")
+    material_ten = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_ten")
+    material_eleven = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_eleven")
+    material_twelve = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_twelve")
 
 class StrategicPlanning(models.Model):
     choices =[
@@ -265,6 +276,8 @@ class SchoolInfo(models.Model):
     students_affairs_responses = models.IntegerField(null=True, blank=True)
     quality_issues = models.IntegerField(null=True, blank=True)
     quality_responses = models.IntegerField(null=True, blank=True)
+    teachers_issues = models.IntegerField(null=True, blank=True)
+    teachers_responses = models.IntegerField(null=True, blank=True)
 
 
 # Issues Models
