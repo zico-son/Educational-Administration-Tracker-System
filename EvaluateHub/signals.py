@@ -8,6 +8,9 @@ def update_school_info(sender, instance, **kwargs):
         school_count = EvaluationForm.objects.count()
         last_school = EvaluationForm.objects.latest('created_at')
         (school_info, created)= SchoolInfo.objects.get_or_create(pk=1)
+        school_info.total_schools_primary = EvaluationForm.objects.filter(school_level='primary').count()
+        school_info.total_schools_intermediate = EvaluationForm.objects.filter(school_level='intermediate').count()
+        school_info.total_schools_secondary = EvaluationForm.objects.filter(school_level='secondary').count()
         school_info.total_schools = school_count
         school_info.last_school_added = last_school.school_name
         school_info.security_safety_issues = SecuritySafetyIssue.objects.count()

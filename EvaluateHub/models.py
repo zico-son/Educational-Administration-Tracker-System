@@ -250,6 +250,9 @@ class EvaluationForm(models.Model):
 class SchoolInfo(models.Model):
     total_schools = models.IntegerField(null=True, blank=True)
     last_school_added = models.CharField(max_length=255, null=True, blank=True)
+    total_schools_primary = models.IntegerField(null=True, blank=True)
+    total_schools_intermediate = models.IntegerField(null=True, blank=True)
+    total_schools_secondary = models.IntegerField(null=True, blank=True)
     security_safety_issues= models.IntegerField(null=True, blank=True)
     security_safety_responses= models.IntegerField(null=True, blank=True)
     nutrition_issues = models.IntegerField(null=True, blank=True)
