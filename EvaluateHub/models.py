@@ -134,8 +134,9 @@ class WorkersAffairs(models.Model):
     negatives =models.CharField(max_length=11, null=True, blank=True, choices=choices)
     percentage_of_absence = models.IntegerField(null=True, blank=True)
     def save(self, *args, **kwargs):
-        self.absent = self.registered - self.present
-        self.percentage_of_absence = (self.absent / self.registered) * 100
+        if self.registered is not None and self.present is not None:
+            self.absent = self.registered - self.present
+            self.percentage_of_absence = (self.absent / self.registered) * 100
         super(WorkersAffairs, self).save(*args, **kwargs)
 
 
