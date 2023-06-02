@@ -3,11 +3,20 @@ from django.conf import settings
 from EvaluateHub.translations import *
 
 class ClassRecord(models.Model):
+    choices = [
+        ('primary', 'primary'),
+        ('intermediate', 'intermediate'),
+        ('secondary', 'secondary'),
+    ]
     registered = models.IntegerField(null=True, blank=True)
     present = models.IntegerField(null=True, blank=True)
     absent = models.IntegerField(null=True, blank=True)
+    level = models.CharField(max_length=12, null=True, blank=True)
     def save(self, *args, **kwargs):
-        self.absent = self.registered - self.present
+        if self.registered is None and self.present is None:
+            self.absent = None
+        else:
+            self.absent = self.registered - self.present
         super(ClassRecord, self).save(*args, **kwargs)
 
 class StudentsAffairs(models.Model):
@@ -15,9 +24,12 @@ class StudentsAffairs(models.Model):
         (disciplined, 1),
         (undisciplined, 0),
     ]
-    first_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="first_class")
-    # second_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="second_class")
-    # third_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="third_class")
+    first_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="first_class", null=True)
+    second_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="second_class", null=True)
+    third_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="third_class", null=True)
+    fourth_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="fourth_class", null=True)
+    fifth_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="fifth_class", null=True)
+    sixth_class = models.OneToOneField(ClassRecord, on_delete=models.CASCADE, related_name="sixth_class", null=True)
     transfers_to_school = models.IntegerField(null=True, blank=True)
     transfers_from_school = models.IntegerField(null=True, blank=True)
     transferred_files = models.CharField(max_length=11, null=True, blank=True, choices=choices)
@@ -240,6 +252,8 @@ class SchoolInfo(models.Model):
     laboratories_responses = models.IntegerField(null=True, blank=True)
     workers_affairs_issues = models.IntegerField(null=True, blank=True)
     workers_affairs_responses = models.IntegerField(null=True, blank=True)
+    students_affairs_issues = models.IntegerField(null=True, blank=True)
+    students_affairs_responses = models.IntegerField(null=True, blank=True)
 
 
 # Issues Models

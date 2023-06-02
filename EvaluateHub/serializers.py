@@ -31,11 +31,16 @@ class AdminStudentsAffairsSerializer(ModelSerializer):
 
 class StudentsAffairsSerializer(ModelSerializer):
     first_class = ClassRecordSerializer()
+    second_class = ClassRecordSerializer()
+    third_class = ClassRecordSerializer()
+    fourth_class = ClassRecordSerializer()
+    fifth_class = ClassRecordSerializer()
+    sixth_class = ClassRecordSerializer()
     issue = IssueSerializer()
     response = ResponseSerializer(read_only = True)
     class Meta:
         model = StudentsAffairs
-        fields = ['id','first_class', 'transfers_to_school', 'transfers_from_school', 'transferred_files', 'issue', 'response']
+        fields = ['id','first_class','second_class', 'third_class', 'fourth_class', 'fifth_class', 'sixth_class','transfers_to_school', 'transfers_from_school', 'transferred_files', 'issue', 'response' ]
 
 class SecurityFactorsSerializer(ModelSerializer):
     class Meta:
@@ -158,11 +163,30 @@ class EvaluationFormSerializer(ModelSerializer):
 
     def create(self, validated_data):
         with transaction.atomic():
+            ordinal_mapping = {
+                1: 'first',
+                2: 'second',
+                3: 'third',
+                4: 'fourth',
+                5: 'fifth',
+                6: 'sixth',
+                7: 'seventh',
+                8: 'eighth',
+                9: 'ninth',
+                10: 'tenth',
+                11: 'eleventh',
+                12: 'twelfth'
+                }
             students_affairs_data = validated_data.pop('students_affairs')
-            first_class_data = students_affairs_data.pop('first_class')
-            first_class = ClassRecord.objects.create(**first_class_data)
+            classes_data = {}
+            for i in range(1, 7):
+                class_data = students_affairs_data.pop(f'{ordinal_mapping.get(i)}_class')
+                if class_data.get('registered') is not None:
+                    class_data = ClassRecord.objects.create(**class_data)
+                    classes_data[f'{ordinal_mapping.get(i)}_class'] = class_data
+            print (classes_data)
             issue_data = students_affairs_data.pop('issue')
-            students_affairs =StudentsAffairs.objects.create( first_class=first_class, **students_affairs_data)
+            students_affairs =StudentsAffairs.objects.create( **classes_data, **students_affairs_data)
             create_issue_if_not_empty(issue_data, StudentAffairsIssue, students_affairs)
             
             security_safety_data =validated_data.pop('security_safety')
@@ -395,3 +419,11 @@ class WorkersAffairsStaticsSerializer(serializers.Serializer):
     percentage_of_absence_gt_30 = serializers.IntegerField()
     percentage_of_absence_gt_40 = serializers.IntegerField()
     percentage_of_absence_gt_50 = serializers.IntegerField()
+
+class StudentsAffairsStaticsSerializer(serializers.Serializer):
+    percentage_of_absence_primary = serializers.FloatField()
+    percentage_of_absence_intermediate = serializers.FloatField()
+    percentage_of_absence_secondary = serializers.FloatField()
+    percentage_of_registered_primary = serializers.FloatField()
+    percentage_of_registered_intermediate = serializers.FloatField()
+    percentage_of_registered_secondary = serializers.FloatField()

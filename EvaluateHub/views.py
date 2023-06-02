@@ -661,3 +661,39 @@ class WorkersAffairsStaticsViewSet(ViewSet):
         }
         return Response(data)
 
+
+class StudentsAffairsStaticsViewSet(ViewSet):
+    def list (self ,request, pk =None):
+        school_data = SchoolInfo.objects.get(pk=1)
+        students_affairs_no_issues = school_data.total_schools - school_data.students_affairs_issues
+        students_affairs_no_responses = school_data.students_affairs_issues - school_data.students_affairs_responses
+        students_affairs = ClassRecord.objects.aggregate(
+            percentage_of_absence_primary = Sum('absent', filter= Q(level = 'primary')),
+            percentage_of_absence_intermediate = Sum('absent', filter= Q(level = 'intermediate')),
+            percentage_of_absence_secondary = Sum('absent', filter= Q(level = 'secondary')),
+            percentage_of_registered_primary = Sum('registered', filter= Q(level = 'primary')),
+            percentage_of_registered_intermediate = Sum('registered', filter= Q(level = 'intermediate')),
+            percentage_of_registered_secondary = Sum('registered', filter= Q(level = 'secondary')))
+        if students_affairs['percentage_of_absence_primary'] is not None:
+            students_affairs['percentage_of_absence_primary'] = int(students_affairs['percentage_of_absence_primary'] / students_affairs['percentage_of_registered_primary'] * 100)
+        if students_affairs['percentage_of_absence_intermediate'] is not None:
+            students_affairs['percentage_of_absence_intermediate'] = int (students_affairs['percentage_of_absence_intermediate'] / students_affairs['percentage_of_registered_intermediate'] * 100)
+        if students_affairs['percentage_of_absence_secondary'] is not None:    
+            students_affairs['percentage_of_absence_secondary'] = int (students_affairs['percentage_of_absence_secondary'] / students_affairs['percentage_of_registered_secondary'] * 100)
+        data = {
+            'system_info': {
+                'total_schools': school_data.total_schools,
+                'last_school_added': school_data.last_school_added,
+                'issues': school_data.students_affairs_issues,
+                'no_issues': students_affairs_no_issues,
+                'responses': school_data.students_affairs_responses,
+                'no_responses': students_affairs_no_responses,
+            },
+            'students_affairs': 
+                {
+                    'percentage_of_absence_primary': students_affairs['percentage_of_absence_primary'],
+                    'percentage_of_absence_intermediate': students_affairs['percentage_of_absence_intermediate'],
+                    'percentage_of_absence_secondary': students_affairs['percentage_of_absence_secondary'],
+                }
+        }
+        return Response(data)

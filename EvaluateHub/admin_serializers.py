@@ -8,11 +8,16 @@ from django.core.exceptions import ObjectDoesNotExist
 
 class AdminStudentsAffairsSerializer(ModelSerializer):
     first_class = ClassRecordSerializer(read_only =True)
+    second_class = ClassRecordSerializer(read_only =True)
+    third_class = ClassRecordSerializer(read_only =True)
+    fourth_class = ClassRecordSerializer(read_only =True)
+    fifth_class = ClassRecordSerializer(read_only =True)
+    sixth_class = ClassRecordSerializer(read_only =True)
     issue = IssueSerializer(read_only =True)
     response = ResponseSerializer()
     class Meta:
         model = StudentsAffairs
-        fields = ['id','first_class','transfers_to_school','transfers_from_school','transferred_files', 'issue','response']
+        fields = ['id','first_class','second_class','third_class','fourth_class','fifth_class','sixth_class','transfers_to_school','transfers_from_school','transferred_files', 'issue','response']
         read_only_fields = ['id','first_class', 'transfers_to_school', 'transfers_from_school', 'transferred_files']
 
 
