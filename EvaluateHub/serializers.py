@@ -58,7 +58,7 @@ class SecuritySafetySerializer(ModelSerializer):
 class MaterialSerializer(ModelSerializer):
     class Meta:
         model = Material
-        fields = '__all__'
+        fields = ['name', 'increase', 'decrease'] 
 
 class TeachersSerializer(ModelSerializer):
     issue = IssueSerializer()
