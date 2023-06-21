@@ -257,8 +257,24 @@ class EvaluationFormViewSet(NoUpdateViewSet):
     def get_queryset(self):
         return EvaluationForm.objects \
         .select_related('students_affairs__first_class') \
+        .select_related('students_affairs__second_class') \
+        .select_related('students_affairs__third_class') \
+        .select_related('students_affairs__fourth_class') \
+        .select_related('students_affairs__fifth_class') \
+        .select_related('students_affairs__sixth_class') \
         .select_related('security_safety__security_factors') \
         .select_related('teachers__material_one') \
+        .select_related('teachers__material_two') \
+        .select_related('teachers__material_three') \
+        .select_related('teachers__material_four') \
+        .select_related('teachers__material_five') \
+        .select_related('teachers__material_six') \
+        .select_related('teachers__material_seven') \
+        .select_related('teachers__material_eight') \
+        .select_related('teachers__material_nine') \
+        .select_related('teachers__material_ten') \
+        .select_related('teachers__material_eleven') \
+        .select_related('teachers__material_twelve') \
         .select_related('students_affairs__issue') \
         .select_related('security_safety__issue') \
         .select_related('teachers__issue') \
