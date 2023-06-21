@@ -307,6 +307,8 @@ class EvaluationFormViewSet(NoUpdateViewSet):
         .all()
     
     def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return EvaluationFormViewSerializer
         return EvaluationFormSerializer
     
     def get_serializer_context(self):
