@@ -212,7 +212,7 @@ class EvaluationFormSerializer(ModelSerializer):
             materials_data = {}
             for i in range(1, 13):
                 material_data = teachers_data.pop(f'material_{engine.number_to_words(i)}')
-                if material_data.get('name') != "":
+                if material_data.get('decrease') is not None and material_data.get('increase') is not None:
                     material = Material.objects.create(**material_data)
                     materials_data[f'material_{engine.number_to_words(i)}'] = material
             issue_data = teachers_data.pop('issue')
