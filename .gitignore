@@ -13,6 +13,7 @@ db.sqlite3
 FMS-dummies/
 notes.py
 migrations
+users.sql
 # C extensions
 *.so
 
