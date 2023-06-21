@@ -9,6 +9,11 @@ import inflect
 class ClassRecordSerializer(ModelSerializer):
     class Meta:
         model = ClassRecord
+        fields = ['registered', 'present', 'absent', 'level']
+
+class ClassRecordViewSerializer(ModelSerializer):
+    class Meta:
+        model = ClassRecord
         fields = ['registered', 'present', 'absent']
 
 class ResponseSerializer(ModelSerializer):
@@ -29,6 +34,19 @@ class AdminStudentsAffairsSerializer(ModelSerializer):
         model = StudentsAffairs
         fields = ['first_class', 'transfers_to_school', 'transfers_from_school', 'transferred_files', 'issue', 'response']
 
+
+class StudentsAffairsViewSerializer(ModelSerializer):
+    first_class = ClassRecordViewSerializer()
+    second_class = ClassRecordViewSerializer()
+    third_class = ClassRecordViewSerializer()
+    fourth_class = ClassRecordViewSerializer()
+    fifth_class = ClassRecordViewSerializer()
+    sixth_class = ClassRecordViewSerializer()
+    issue = IssueSerializer()
+    response = ResponseSerializer(read_only = True)
+    class Meta:
+        model = StudentsAffairs
+        fields = ['id','first_class','second_class', 'third_class', 'fourth_class', 'fifth_class', 'sixth_class','transfers_to_school', 'transfers_from_school', 'transferred_files', 'issue', 'response' ]
 class StudentsAffairsSerializer(ModelSerializer):
     first_class = ClassRecordSerializer()
     second_class = ClassRecordSerializer()
@@ -150,6 +168,26 @@ class EnvironmentPopulationSerializer(ModelSerializer):
     class Meta:
         model = EnvironmentPopulation
         fields = ['id', 'toilets_health_procedures','health_file','diagnosis_health_plan','check_health_plan','activities' ,'labs_health_procedures','issue', 'response'] 
+
+class EvaluationFormViewSerializer(ModelSerializer):
+    students_affairs = StudentsAffairsViewSerializer()
+    security_safety = SecuritySafetySerializer()
+    teachers = TeachersSerializer()
+    workers_affairs = WorkersAffairsSerializer()
+    strategic_planning = StrategicPlanningSerializer()
+    administration = AdministrationSerializer()
+    training = TrainingSerializer()
+    nutrition = NutritionSerializer()
+    cooperative = CooperativeSerializer()
+    laboratories = LaboratoriesSerializer()
+    decentralization = DecentralizationSerializer()
+    production_unit = ProductionUnitSerializer()
+    environment_population = EnvironmentPopulationSerializer()
+    quality = QualitySerializer()
+
+    class Meta:
+        model = EvaluationForm
+        fields = ['id', 'school_name', 'school_id', 'school_level','students_affairs','security_safety', 'teachers','workers_affairs', 'strategic_planning', 'administration', 'training', 'nutrition', 'cooperative', 'laboratories', 'decentralization', 'production_unit', 'environment_population', 'quality', 'security_safety', 'teachers']
 
 class EvaluationFormSerializer(ModelSerializer):
     students_affairs = StudentsAffairsSerializer()
