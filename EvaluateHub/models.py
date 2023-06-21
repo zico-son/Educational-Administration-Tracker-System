@@ -62,7 +62,7 @@ class Material (models.Model):
     increase = models.IntegerField(null=True, blank=True)
     decrease = models.IntegerField(null=True, blank=True)
 class Teachers(models.Model):
-    material_one = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True)
+    material_one = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_one")
     material_two = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_two")
     material_three = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_three")
     material_four = models.OneToOneField(Material, on_delete=models.CASCADE, null=True, blank=True, related_name="material_four")
