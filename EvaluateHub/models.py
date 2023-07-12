@@ -238,6 +238,7 @@ class EvaluationForm(models.Model):
     quality = models.OneToOneField(Quality, on_delete=models.CASCADE)
     security_safety = models.OneToOneField(SecuritySafety, on_delete=models.CASCADE)
     teachers = models.OneToOneField(Teachers, on_delete=models.CASCADE)
+    issues = models.BooleanField(default=False)
     
     
 
