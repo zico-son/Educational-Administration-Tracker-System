@@ -77,6 +77,17 @@ class TeachersViewSet(NoPostViewSet):
     search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('teachers__material_one') \
+        .select_related('teachers__material_two') \
+        .select_related('teachers__material_three') \
+        .select_related('teachers__material_four') \
+        .select_related('teachers__material_five') \
+        .select_related('teachers__material_six') \
+        .select_related('teachers__material_seven') \
+        .select_related('teachers__material_eight') \
+        .select_related('teachers__material_nine') \
+        .select_related('teachers__material_ten') \
+        .select_related('teachers__material_eleven') \
+        .select_related('teachers__material_twelve') \
         .select_related('teachers__issue') \
         .select_related('teachers__response') \
         .all()
