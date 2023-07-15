@@ -489,6 +489,6 @@ class StudentsAffairsStaticsSerializer(serializers.Serializer):
     percentage_of_registered_secondary = serializers.FloatField()
 
 
-class QualityStaticsSerializer(serializers.Serializer):
+class SchoolStaticsSerializer(serializers.Serializer):
     school_name = serializers.CharField()
     school_level = serializers.CharField()
