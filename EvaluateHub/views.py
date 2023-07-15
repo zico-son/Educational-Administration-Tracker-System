@@ -729,7 +729,7 @@ class QualityStaticsViewSet(ViewSet):
         queryset = EvaluationForm.objects.filter(quality__in=quality_queryset)
         print (queryset)
 
-        serializer = QualityStaticsSerializer(queryset, many=True)
+        serializer = SchoolStaticsSerializer(queryset, many=True)
         data = {
             'system_info': {
                 'total_schools': school_data.total_schools,
