@@ -19,6 +19,11 @@ class StudentsAffairsViewSet(NoPostViewSet):
     search_fields = ['school_name']
     queryset = EvaluationForm.objects \
         .select_related('students_affairs__first_class') \
+        .select_related('students_affairs__second_class') \
+        .select_related('students_affairs__third_class') \
+        .select_related('students_affairs__fourth_class') \
+        .select_related('students_affairs__fifth_class') \
+        .select_related('students_affairs__sixth_class') \
         .select_related('students_affairs__issue') \
         .select_related('students_affairs__response') \
         .all()
