@@ -33,6 +33,10 @@ router.register('production-unit', ProductionUnitViewSet, basename='production-u
 router.register('production-unit-statics', ProductionUnitStaticsViewSet, basename='production-unit-statics')
 router.register('environment-population', EnvironmentPopulationViewSet, basename='environment-population')
 router.register('environment-population-statics', EnvironmentPopulationStaticsViewSet, basename='environment-population-statics')
+
+managerRouter = routers.DefaultRouter()
+managerRouter.register('manager-statics', ManagerStaticsViewSet, basename='manager-statics')
 urlpatterns = [
     path('', include(router.urls)),
+    path('m/', include(managerRouter.urls)),
 ]

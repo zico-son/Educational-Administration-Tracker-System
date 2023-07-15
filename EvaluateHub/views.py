@@ -758,3 +758,86 @@ class TeachersStaticsViewSet(ViewSet):
                 'no_responses': teachers_no_responses,}
         }
         return Response(data)
+    
+
+class ManagerStaticsViewSet(ViewSet):
+    def list (self ,request, pk =None):
+        # Schools
+        schools_with_issues = EvaluationForm.objects.filter(issues=True)
+        schools_without_issues = EvaluationForm.objects.filter(issues=False)
+        schools_with_issues = SchoolStaticsSerializer(schools_with_issues, many=True)
+        schools_without_issues = SchoolStaticsSerializer(schools_without_issues, many=True)
+        # Nutrition
+        no_daily_received = Nutrition.objects.filter(daily_received=noexist)
+        no_health_certificate = Nutrition.objects.filter(health_certificate=noexist)
+        not_stored_periods = Nutrition.objects.filter(not_stored_periods=noexist)
+        # Training
+        no_training_plan = Training.objects.filter(training_plan=noexist) 
+        no_teachers_training = Training.objects.filter(teachers_training=noexist) 
+        # SecurityFactors
+        no_fire_line = SecurityFactors.objects.filter(fire_line=invalid)
+        no_fire_line = SecuritySafety.objects.filter(security_factors__in=no_fire_line)
+        no_tanks = SecurityFactors.objects.filter(tanks=invalid)
+        no_tanks = SecuritySafety.objects.filter(security_factors__in=no_tanks)
+        # SecuritySafety
+        no_wall = SecuritySafety.objects.filter(wall=undisciplined)
+        # Administration
+        no_analysis = Administration.objects.filter(analysis=noexist)
+        no_risks_indicators = Administration.objects.filter(risks_indicators=noexist)
+        # StudentsAffairs
+        no_transferred_files = StudentsAffairs.objects.filter(transferred_files=undisciplined)
+        # EnvironmentPopulation
+        no_labs_health_procedures = EnvironmentPopulation.objects.filter(labs_health_procedures=noexist)
+        no_diagnosis_health_plan = EnvironmentPopulation.objects.filter(diagnosis_health_plan=noexist)
+        no_toilets_health_procedures = EnvironmentPopulation.objects.filter(toilets_health_procedures=noexist)
+        # Teachers
+
+        no_daily_received = EvaluationForm.objects.filter(nutrition__in=no_daily_received)
+        no_health_certificate = EvaluationForm.objects.filter(nutrition__in=no_health_certificate)
+        not_stored_periods = EvaluationForm.objects.filter(nutrition__in=not_stored_periods)
+        no_training_plan = EvaluationForm.objects.filter(training__in=no_training_plan)
+        no_teachers_training = EvaluationForm.objects.filter(training__in=no_teachers_training)
+        no_fire_line = EvaluationForm.objects.filter(security_safety__in=no_fire_line)
+        no_tanks = EvaluationForm.objects.filter(security_safety__in=no_tanks)
+        no_wall = EvaluationForm.objects.filter(security_safety__in=no_wall)
+        no_analysis = EvaluationForm.objects.filter(administration__in=no_analysis)
+        no_risks_indicators = EvaluationForm.objects.filter(administration__in=no_risks_indicators)
+        no_transferred_files = EvaluationForm.objects.filter(students_affairs__in=no_transferred_files)
+        no_labs_health_procedures = EvaluationForm.objects.filter(environment_population__in=no_labs_health_procedures)
+        no_diagnosis_health_plan = EvaluationForm.objects.filter(environment_population__in=no_diagnosis_health_plan)
+        no_toilets_health_procedures = EvaluationForm.objects.filter(environment_population__in=no_toilets_health_procedures)
+
+        no_daily_received = SchoolStaticsSerializer(no_daily_received, many=True)
+        no_health_certificate = SchoolStaticsSerializer(no_health_certificate, many=True)
+        not_stored_periods = SchoolStaticsSerializer(not_stored_periods, many=True)
+        no_training_plan = SchoolStaticsSerializer(no_training_plan, many=True)
+        no_teachers_training = SchoolStaticsSerializer(no_teachers_training, many=True)
+        no_fire_line = SchoolStaticsSerializer(no_fire_line, many=True)
+        no_tanks = SchoolStaticsSerializer(no_tanks, many=True)
+        no_wall = SchoolStaticsSerializer(no_wall, many=True)
+        no_analysis = SchoolStaticsSerializer(no_analysis, many=True)
+        no_risks_indicators = SchoolStaticsSerializer(no_risks_indicators, many=True)
+        no_transferred_files = SchoolStaticsSerializer(no_transferred_files, many=True)
+        no_labs_health_procedures = SchoolStaticsSerializer(no_labs_health_procedures, many=True)
+        no_diagnosis_health_plan = SchoolStaticsSerializer(no_diagnosis_health_plan, many=True)
+        no_toilets_health_procedures = SchoolStaticsSerializer(no_toilets_health_procedures, many=True)
+
+        data = {
+            'schools_with_issues': schools_with_issues.data,
+            'schools_without_issues': schools_without_issues.data,
+            'daily_not_received': no_daily_received.data,
+            'no_health_certificate': no_health_certificate.data,
+            'not_stored_periods': not_stored_periods.data,
+            'no_training_plan': no_training_plan.data,
+            'no_teachers_training': no_teachers_training.data,
+            'no_fire_line': no_fire_line.data,
+            'no_tanks': no_tanks.data,
+            'no_wall': no_wall.data,
+            'no_analysis': no_analysis.data,
+            'no_risks_indicators': no_risks_indicators.data,
+            'no_transferred_files': no_transferred_files.data,
+            'no_labs_health_procedures': no_labs_health_procedures.data,
+            'no_diagnosis_health_plan': no_diagnosis_health_plan.data,
+            'no_toilets_health_procedures': no_toilets_health_procedures.data,
+        }
+        return Response(data)
