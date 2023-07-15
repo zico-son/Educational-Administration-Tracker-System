@@ -18,5 +18,5 @@ class Plan(models.Model):
 
 class Activities(models.Model):
     activity = models.TextField(null=True, blank=True)
-    file = models.FileField(upload_to='files/', null=True, blank=True)
+    file = models.FileField(upload_to='activity_files/', null=True, blank=True)
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE, related_name='activities')
