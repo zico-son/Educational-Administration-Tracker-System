@@ -1,5 +1,5 @@
 from django.db import transaction
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, CharField
 from PlanHub.models import Plan, Activities
 
 
@@ -20,6 +20,10 @@ class ManagerPlanViewSerializer(ModelSerializer):
         model = Plan
         fields = ['id','objective', 'execution_time', 'department','executed_by', 'execution_tracker', 'activities', 'approved', 'done', 'archived']
 
+class ActivitiesSerializer(ModelSerializer):
+    class Meta:
+        model = Activities
+        fields = ['id','activity', 'file']
 class DepartmentPlanSerializer(ModelSerializer):
     activities = ActivitiesSerializer(many=True)
     class Meta:
@@ -38,30 +42,46 @@ class DepartmentPlanSerializer(ModelSerializer):
             return plan
 
     def update(self, instance, validated_data):
-        with transaction.atomic():
-            activities_data = validated_data.pop('activities', [])
-            instance.objective = validated_data.get('objective', instance.objective)
-            instance.execution_time = validated_data.get('execution_time', instance.execution_time)
-            instance.executed_by = validated_data.get('executed_by', instance.executed_by)
-            instance.execution_tracker = validated_data.get('execution_tracker', instance.execution_tracker)
-            instance.save()
+        activities_data = validated_data.pop('activities')
+        activities = instance.activities.all()
 
-            # Update activities
-            existing_activities = list(instance.activities.all())
-            existing_activity_ids = [activity.id for activity in existing_activities]
-            for activity_data in activities_data:
-                activity_id = activity_data.get('id')
-                if activity_id in existing_activity_ids:
-                    activity = Activities.objects.get(id=activity_id)
-                    activity.description = activity_data.get('description', activity.description)
-                    activity.save()
-                    existing_activities.remove(activity)
-                else:
-                    Activities.objects.create(plan=instance, **activity_data)
+        # Perform partial update of the Plan model (instance)
+        instance.objective = validated_data.get('objective', instance.objective)
+        instance.execution_time = validated_data.get('execution_time', instance.execution_time)
+        instance.executed_by = validated_data.get('executed_by', instance.executed_by)
+        instance.execution_tracker = validated_data.get('execution_tracker', instance.execution_tracker)
+        instance.done = validated_data.get('done', instance.done)
+        instance.save()
 
-            # Delete any remaining activities that were not included in the update
-            for activity in existing_activities:
-                activity.delete()
+        # Perform update for each activity
+        for activity_data in activities_data:
+            activity_id = activity_data.get('id', None)
+            if activity_id:
+                activity = activities.get(pk=activity_id)
 
-            return instance
+                # Update activity fields
+                activity.activity = activity_data.get('activity', activity.activity)
 
+                # Update the file field if provided
+                file = activity_data.get('file', None)
+                if file:
+                    activity.file = file
+
+                activity.save()
+
+        return instance
+
+
+
+class PostFileSerializer(ModelSerializer):
+    activity_id = CharField(max_length=8)
+    class Meta:
+        model = Activities
+        fields = ['activity_id','file']
+    
+    def create(self, validated_data):
+        activity_id = validated_data.pop('activity_id')
+        activity = Activities.objects.get(pk=activity_id)
+        activity.file = validated_data.get('file', activity.file)
+        activity.save()
+        return activity
