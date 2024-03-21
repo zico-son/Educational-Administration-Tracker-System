@@ -30,12 +30,11 @@ SECRET_KEY = 'django-insecure-p-%u^xtwnjt0ha-8h!^v!lyour4y3v^x&ykqh!l$uw4sp(6v2t
 DEBUG = 1
 
 ALLOWED_HOSTS = ['*']
-
+ADMIN_ENABLED = False
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
