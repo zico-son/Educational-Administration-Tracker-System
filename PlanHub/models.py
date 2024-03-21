@@ -10,10 +10,10 @@ class Plan(models.Model):
     approved = models.BooleanField(default=False)
     done = models.BooleanField(default=False)
     archived = models.BooleanField(default=False)
-    # created_at = models.DateTimeField(auto_now_add=True)
-    # updated_at = models.DateTimeField(auto_now=True)
-    class Meta:
-        ordering = ['department']
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    class Meta: 
+        ordering = ['-created_at', 'department']
 
 
 class Activities(models.Model):
